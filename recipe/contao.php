@@ -39,24 +39,16 @@ before('deploy:symlink', 'contao:version');
  * Backup database
  * Requires non contao-core package `bwein-net/contao-database-backup` to be installed
  */
-desc('Backup database shared dir');
-set('contao_database_backup', false);
-task(
-    'contao:database:backup:shared',
-    function () {
-        if (get('contao_database_backup')) {
-            add('shared_dirs', ['var/db_backups']);
-        }
-    }
-)->setPrivate();
-before('deploy:shared', 'contao:database:backup:shared');
+add('shared_dirs', ['var/db_backups']);
 
 desc('Backup database');
 task(
     'contao:database:backup',
     function () {
-        if (get('contao_database_backup')) {
+        try {
             run('{{bin/php}} {{bin/console}} bwein:database:backup deploy {{console_options}}');
+        } catch (\Exception $exception) {
+            writeln('<comment>To backup database setup "bwein-net/contao-database-backup"</comment>');
         }
     }
 );
