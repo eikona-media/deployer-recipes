@@ -1,0 +1,28 @@
+{
+    "name": "eikona/deployer-recipes",
+    "description": "EIKONA deployer recipes",
+    "keywords": [
+        "deployer",
+        "recipes",
+        "deploy",
+        "deployment",
+        "contao",
+        "gitlab-ci",
+        "tar",
+        "scp"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "EIKONA Media",
+            "homepage": "https://eikona-media.de/"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "require-dev": {
+        "deployer/deployer": "^6.2",
+        "friendsofphp/php-cs-fixer": "^2.12"
+    }
+}
