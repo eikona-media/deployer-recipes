@@ -10,8 +10,10 @@
 
 namespace Deployer;
 
+require_once __DIR__.'/deploy/update_shared.php';
+
 // Contao shared dirs
-set('shared_dirs', ['assets/images', 'files', 'templates', 'var/db_backups', 'var/logs', 'web/share']);
+set('shared_dirs', ['assets/images', 'files', 'templates', 'var/logs', 'web/share']);
 
 // Contao shared files - parameters are updated by tar_source
 add('shared_files', ['system/config/localconfig.php']);
@@ -23,14 +25,43 @@ set('writable_dirs', []);
 set('bin/console', '{{release_path}}/vendor/bin/contao-console');
 
 /*
- * Contao Version Check
+ * Contao update shared dirs + parameters from repo
  */
-desc('Contao version check');
+set('update_shared_dirs', ['files', 'templates']);
+set('update_shared_parameters', 'app/config/parameters.yml');
+
+// optionally add to deploy.php:
+//before('deploy:shared', 'deploy:update_shared_dirs');
+//after('deploy:shared', 'deploy:update_shared_parameters');
+
+/*
+ * Contao version integrity check
+ */
+desc('Contao version integrity check');
 task(
     'contao:version',
     function () {
         run('{{bin/php}} {{bin/console}} contao:version {{console_options}}');
     }
 );
-
 before('deploy:symlink', 'contao:version');
+
+/*
+ * Backup contao database
+ * Requires non contao-core package `bwein-net/contao-database-backup` to be installed
+ */
+desc('Backup contao database');
+task(
+    'contao:database:backup',
+    function () {
+        try {
+            run('{{bin/php}} {{bin/console}} bwein:database:backup deploy {{console_options}}');
+        } catch (\Exception $exception) {
+            writeln('<comment>To backup database setup "bwein-net/contao-database-backup"</comment>');
+        }
+    }
+);
+
+// optionally add to deploy.php:
+//add('shared_dirs', ['var/db_backups']);
+//before('deploy:symlink', 'contao:database:backup');

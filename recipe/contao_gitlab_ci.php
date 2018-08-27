@@ -11,12 +11,7 @@
 namespace Deployer;
 
 require_once __DIR__.'/contao.php';
-require_once __DIR__.'/gitlab_ci.php';
-
-/*
- * Deploy via gitlab-ci
- */
-set('gitlab_ci_parameters_file', 'app/config/parameters.yml');
+require_once __DIR__.'/deploy/gitlab_ci.php';
 
 // Symfony exclude dirs for upload
 add(
@@ -41,21 +36,10 @@ add(
     ]
 );
 
-desc('Update shared dirs from repo');
-task(
-    'contao:update_shared',
-    function () {
-        $sharedPath = '{{deploy_path}}/shared';
+// Contao update shared dirs + parameters from repo
+before('deploy:shared', 'deploy:update_shared_dirs');
+after('deploy:shared', 'deploy:update_shared_parameters');
 
-        $dir = 'files';
-        if (test("[ -d $(echo {{release_path}}/$dir) ]")) {
-            run("cp -rv {{release_path}}/$dir $sharedPath/".\dirname(parse($dir)));
-        }
-
-        $dir = 'templates';
-        if (test("[ -d $(echo {{release_path}}/$dir) ]")) {
-            run("cp -rv {{release_path}}/$dir $sharedPath/".\dirname(parse($dir)));
-        }
-    }
-)->setPrivate();
-before('deploy:shared', 'contao:update_shared');
+// Contao database backup
+add('shared_dirs', ['var/db_backups']);
+before('deploy:symlink', 'contao:database:backup');
