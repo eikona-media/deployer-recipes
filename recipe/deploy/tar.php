@@ -39,12 +39,14 @@ set(
 );
 
 add(
-    'exclude_dirs',
+    'exclude_paths',
     [
+        '.editorconfig',
         '.gitignore',
         '.project.conf',
         'hosts.yml',
         'README.md',
+        '.idea',
     ]
 );
 
@@ -54,7 +56,7 @@ set('tar_extract_options', 'xfzop');
 desc('Creating tar file locally');
 task('tar:create', function () {
     $excludesDefault = ['.git', 'deploy.php'];
-    $excludes = \is_array(get('exclude_dirs')) ? get('exclude_dirs') : [];
+    $excludes = \is_array(get('exclude_paths')) ? get('exclude_paths') : [];
 
     $excludes = array_merge($excludesDefault, array_filter($excludes));
     foreach ($excludes as &$exclude) {

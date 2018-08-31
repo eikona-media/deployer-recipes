@@ -13,9 +13,9 @@ namespace Deployer;
 require_once __DIR__.'/contao.php';
 require_once __DIR__.'/deploy/gitlab_ci.php';
 
-// Symfony exclude dirs for upload
+// Symfony exclude paths for upload
 add(
-    'exclude_dirs',
+    'exclude_paths',
     [
         'app/config/parameters.*',
         'tests',
@@ -25,9 +25,9 @@ add(
     ]
 );
 
-// Contao exclude dirs for upload
+// Contao exclude paths for upload
 add(
-    'exclude_dirs',
+    'exclude_paths',
     [
         'web/assets',
         'web/files',

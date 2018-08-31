@@ -12,7 +12,7 @@ namespace Deployer;
 
 require_once __DIR__.'/scp.php';
 
-add('exclude_dirs', ['.gitlab-ci.yml']);
+add('exclude_paths', ['.gitlab-ci.yml']);
 
 desc('Upload code - git clone should be done by gitlab-ci');
 task(
