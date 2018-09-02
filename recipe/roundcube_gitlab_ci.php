@@ -17,7 +17,7 @@ require_once __DIR__.'/deploy/gitlab_ci.php';
  * Roundcube Configuration
  */
 
-// roundcube exclude paths
+// Roundcube exclude paths
 add(
     'exclude_paths',
     [
