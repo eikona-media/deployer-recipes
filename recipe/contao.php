@@ -12,6 +12,10 @@ namespace Deployer;
 
 require_once __DIR__.'/deploy/update_shared.php';
 
+/*
+ * Contao Configuration
+ */
+
 // Contao shared dirs
 set('shared_dirs', ['assets/images', 'files', 'templates', 'var/logs', 'web/share']);
 

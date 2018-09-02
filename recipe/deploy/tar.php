@@ -55,7 +55,7 @@ set('tar_extract_options', 'xfzop');
 
 desc('Creating tar file locally');
 task('tar:create', function () {
-    $excludesDefault = ['.git', 'deploy.php'];
+    $excludesDefault = ['.git', '.gitignore', '.gitmodules', './deploy.php'];
     $excludes = \is_array(get('exclude_paths')) ? get('exclude_paths') : [];
 
     $excludes = array_merge($excludesDefault, array_filter($excludes));
