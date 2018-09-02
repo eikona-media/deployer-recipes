@@ -38,7 +38,9 @@ task(
             return;
         }
 
-        list($prefix, $extension) = explode('.', $file);
+        $filePieces = explode('.', $file);
+        $prefix = implode('.', array_slice($filePieces, 0, -1));
+        $extension = end( $filePieces );
         $fileStage = $prefix.'_{{stage}}.'.$extension;
 
         if (!test("[ -f {{release_path}}/$fileStage ]") && isVerbose()) {
