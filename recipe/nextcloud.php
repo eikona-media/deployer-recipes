@@ -32,6 +32,32 @@ set('update_shared_parameters', 'config/config.php');
 //after('deploy:shared', 'deploy:update_shared_parameters');
 
 /*
+ * Upload with tar
+ */
+
+// Nextcloud exclude paths
+add(
+        'exclude_paths',
+        [
+            '.github',
+            '.tx',
+            './build',
+            './contribute',
+            './tests',
+            './.user.ini',
+            './autotest*.sh',
+            './buildjsdocs.sh',
+            './CHANGELOG.md',
+            './CODE_OF_CONDUCT.md',
+            './CONTRIBUTING.md',
+            './COPYING',
+            './COPYING-README',
+            './issue_template.md',
+            './README.md',
+        ]
+);
+
+/*
  * Main task
  */
 task('deploy', [

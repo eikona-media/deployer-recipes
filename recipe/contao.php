@@ -69,3 +69,30 @@ task(
 // optionally add to deploy.php:
 //add('shared_dirs', ['var/db_backups']);
 //before('deploy:symlink', 'contao:database:backup');
+
+/*
+ * Upload with tar
+ */
+
+// Symfony exclude paths for upload
+add(
+        'exclude_paths',
+        [
+            './app/config/parameters.*',
+            './tests',
+            './var',
+            './web/bundles',
+            './web/*dev.php',
+        ]
+);
+
+// Contao exclude paths for upload
+add(
+        'exclude_paths',
+        [
+            './web/assets',
+            './web/files',
+            './web/share',
+            './web/system',
+        ]
+);

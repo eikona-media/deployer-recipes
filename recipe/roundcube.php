@@ -30,6 +30,32 @@ set('update_shared_parameters', 'config/config.inc.php');
 //after('deploy:shared', 'deploy:update_shared_parameters');
 
 /*
+ * Upload with tar
+ */
+
+// Roundcube exclude paths
+add(
+        'exclude_paths',
+        [
+            '.tx',
+            './bin',
+            './SQL',
+            './tests',
+            './.travis.yml',
+            './CHANGELOG',
+            './composer.json-dist',
+            './Dockerfile',
+            './INSTALL',
+            './LICENSE',
+            './README.md',
+            './UPGRADING',
+        ]
+);
+
+// optionally add to deploy.php after setup
+//add('exclude_paths', ['./installer',]);
+
+/*
  * Main task
  */
 task('deploy', [
