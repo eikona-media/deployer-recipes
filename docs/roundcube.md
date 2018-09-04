@@ -19,10 +19,13 @@ require 'deployer/recipe/common.php';
 Update shared dirs + parameters from repo - see: [update_shared](deploy/update_shared.md)
 
 ```php
-before('deploy:shared', 'deploy:update_shared_dirs');
-```
-```php
 after('deploy:shared', 'deploy:update_shared_parameters');
 ```
 
 For Gitlab-CI see: [gitlab_ci](deploy/gitlab_ci.md)
+
+Ignore installer on upload via Gitlab-CI:
+
+```php
+add('exclude_paths', ['./installer']);
+```
