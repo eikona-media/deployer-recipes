@@ -14,15 +14,20 @@ The recipe extends the common recipe of core deployer so you have to include thi
 require 'deployer/recipe/common.php';
 ```
 
-### Usage
+### Optional Usage
 
-Update shared dirs + parameters from repo - see: [update_shared](deploy/update_shared.md)
+* Update shared dirs + parameters from repo - see: [update_shared](deploy/update_shared.md)
 
-```php
-before('deploy:shared', 'deploy:update_shared_dirs');
-```
-```php
-after('deploy:shared', 'deploy:update_shared_parameters');
-```
+    ```php
+    before('deploy:shared', 'deploy:update_shared_dirs');
+    ```
 
-For Gitlab-CI see: [gitlab_ci](deploy/gitlab_ci.md)
+    Default dirs: ``['apps']``
+
+    ```php
+    after('deploy:shared', 'deploy:update_shared_parameters');
+    ```
+
+    Default file: ``config/config.php``
+
+* For Gitlab-CI see: [gitlab_ci](deploy/gitlab_ci.md)

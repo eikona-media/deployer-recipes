@@ -32,3 +32,6 @@ require 'recipe/deploy/gitlab_ci.php';
   Explodes the file path in ``$prefix`` and ``$extension`` - and builds a new path ``$fileStage = $prefix.'_{{stage}}.'.$extension;``
 
   Afterwards the from ``{{release_path}}/$fileStage`` will be copied to ``{{deploy_path}}/shared/{{update_shared_parameters}}``, to transfer changes of the stage from repo to shared file.
+
+  Finally, all ``$filesStages = $prefix.'_*';`` are deleted.
+
