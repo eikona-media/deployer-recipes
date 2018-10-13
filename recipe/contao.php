@@ -17,10 +17,7 @@ require_once __DIR__.'/deploy/update_shared.php';
  */
 
 // Contao shared dirs
-set('shared_dirs', ['assets/images', 'files', 'templates', 'var/logs', 'web/share']);
-
-// Contao shared files - parameters are updated by tar_source
-add('shared_files', ['system/config/localconfig.php']);
+set('shared_dirs', ['assets/images', 'files', 'system/config', 'templates', 'var/logs', 'web/share']);
 
 // Contao writable dirs
 set('writable_dirs', []);
