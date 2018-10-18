@@ -44,7 +44,7 @@ add(
         '.editorconfig',
         '.gitignore',
         '.project.conf',
-        'hosts.yml',
+        './*hosts.yml',
         'README.md',
         '.idea',
     ]
