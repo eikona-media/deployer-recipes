@@ -11,7 +11,7 @@ require 'recipe/deploy/tar.php';
 ## Tasks & Configuration
 
 * ``tar:create`` - creates a tar file with config:
-    * ``tar_bin_local`` - default: ``which tar``
+    * ``local/bin/tar`` - default: ``which tar``
     * ``tar_create_options`` - default: ``cfzp``
     * ``tar_file_local`` - default: ``tempnam(sys_get_temp_dir(), 'deployer')``
     * ``exclude_paths`` as array converted to ``--exclude="%s"`` - default: ``['.git', '.gitignore', '.gitmodules', './deploy.php']``
