@@ -21,10 +21,6 @@
     "require": {
         "php": ">=7.0"
     },
-    "require-dev": {
-        "deployer/deployer": "^6.2",
-        "friendsofphp/php-cs-fixer": "^2.12"
-    },
     "autoload": {
         "files": [
             "autoload.php"
