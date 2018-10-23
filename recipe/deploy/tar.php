@@ -44,7 +44,7 @@ add(
         '.editorconfig',
         '.gitignore',
         './.project.conf',
-        './deploy_hosts.yml',
+        './deploy.yml',
         'README.md',
         '.idea',
     ]
