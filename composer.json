@@ -6,7 +6,10 @@
         "recipes",
         "deploy",
         "deployment",
+        "akeneo",
         "contao",
+        "nextcloud",
+        "roundcube",
         "gitlab-ci",
         "tar",
         "scp"
