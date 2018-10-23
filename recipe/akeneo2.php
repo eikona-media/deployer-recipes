@@ -10,7 +10,9 @@
 
 namespace Deployer;
 
-require_once __DIR__ . '/deploy/update_shared.php';
+require_once __DIR__.'/deploy/update_shared.php';
+require_once __DIR__.'/build/composer.php';
+require_once __DIR__.'/build/yarn.php';
 
 /*
  * Akeneo Configuration
@@ -63,25 +65,13 @@ task('yarn:compile', function () {
     run('cd {{release_path}} && {{bin/yarn}} run webpack');
 });
 
-/**
+/*
  * Akeneo build
  */
-set('local/bin/php', function () {
-    return runLocally('which php');
-});
-
-set('local/bin/composer', function () {
-    return runLocally('which composer');
-});
-
-set('local/bin/yarn', function () {
-    return runLocally('which yarn');
-});
-
-task('build', function () {
-    runLocally('{{local/bin/php}} {{local/bin/composer}} install --prefer-dist --optimize-autoloader --no-progress --no-scripts');
-    runLocally('{{local/bin/yarn}} install');
-})->desc('Build your project');
+task('build', [
+    'build:composer',
+    'build:yarn',
+])->desc('Build your project');
 
 /*
  * Akeneo update shared dirs + parameters from repo

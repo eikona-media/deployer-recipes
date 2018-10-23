@@ -11,6 +11,7 @@
 namespace Deployer;
 
 require_once __DIR__.'/deploy/update_shared.php';
+require_once __DIR__.'/build/composer.php';
 
 /*
  * Contao Configuration
@@ -93,3 +94,10 @@ add(
             './web/system',
         ]
 );
+
+/*
+ * Contao build
+ */
+task('build', [
+    'build:composer',
+])->desc('Build your project');
