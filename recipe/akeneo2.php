@@ -39,10 +39,6 @@ set('writable_dirs', [
     'web/media',
 ]);
 
-// optionally add to deploy.php:
-//before('deploy:shared', 'deploy:update_shared_dirs');
-//after('deploy:shared', 'deploy:update_shared_parameters');
-
 /*
  * Akeneo install assets
  */
@@ -71,6 +67,9 @@ task('yarn:compile', function () {
  * Akeneo update shared dirs + parameters from repo
  */
 set('update_shared_parameters', 'app/config/parameters.yml');
+
+// optionally add to deploy.php:
+//after('deploy:shared', 'deploy:update_shared_parameters');
 
 // Symfony exclude paths for upload
 add(

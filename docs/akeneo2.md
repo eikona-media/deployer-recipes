@@ -22,19 +22,13 @@ require 'recipe/yarn.php';
 
 ### Optional Usage
 
-* Update shared dirs + parameters from repo - see: [update_shared](deploy/update_shared.md)
-
-    ```php
-    before('deploy:shared', 'deploy:update_shared_dirs');
-    ```
-
-    Default dirs: ``['app/archive', 'app/file_storage', 'app/uploads', 'var/logs', 'var/sessions', 'var/backups']``
+* Update parameters from repo - see: [update_shared](deploy/update_shared.md)
 
     ```php
     after('deploy:shared', 'deploy:update_shared_parameters');
     ```
 
-    Default files:  ``['app/config/parameters.yml', '.env']``
+    Default files:  ``['app/config/parameters.yml']``
 
 * For Gitlab-CI see: [gitlab_ci](deploy/gitlab_ci.md)
 
