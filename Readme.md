@@ -18,9 +18,19 @@ require 'recipe/contao.php';
 
 | Recipe     | Docs                        |
 | ---------- |:---------------------------:|
+| akeneo 2.* | [read](docs/akeneo2.md)     |
 | contao     | [read](docs/contao.md)      |
+| cycon      | [read](docs/cycon.md)       |
 | nextcloud  | [read](docs/nextcloud.md)   |
 | roundcube  | [read](docs/roundcube.md)   |
+
+## Build Helper
+
+| Recipe         | Docs                                 |
+|----------------|:------------------------------------:|
+| composer       | [read](docs/build/composer.md)       |
+| npm            | [read](docs/build/npm.md)            |
+| yarn           | [read](docs/build/yarn.md)           |
 
 ## Deploy Helper
 

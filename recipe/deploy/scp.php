@@ -20,7 +20,7 @@ set('scp_upload_source', './');
 set('scp_upload_destination', '{{release_path}}/');
 
 set(
-    'scp_bin_local',
+    'local/bin/scp',
     function () {
         return runLocally('which scp');
     }
@@ -65,7 +65,7 @@ task(
             }
 
             runLocally(
-                '{{scp_bin_local}} -rv '.implode(' ', $config['options'])." $source $host:$destination",
+                '{{local/bin/scp}} -rv '.implode(' ', $config['options'])." $source $host:$destination",
                 $config
             );
         }

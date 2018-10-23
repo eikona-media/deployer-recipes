@@ -11,7 +11,7 @@ require 'recipe/deploy/scp.php';
 ## Tasks & Configuration
 
 * ``scp:upload`` - uploads a file via scp with config:
-    * ``scp_bin_local`` - default: ``which scp``
+    * ``local/bin/scp`` - default: ``which scp``
     * ``scp_upload_source`` - default: ``./``
     * ``scp_upload_destination`` - default: ``{{release_path}}/``
     * ``scp_upload_config`` - default: ``[]`` - ``'options'`` will be added to command

@@ -14,7 +14,7 @@ set('tar_source', './');
 set('tar_destination', '{{release_path}}/');
 
 set(
-    'tar_bin_local',
+    'local/bin/tar',
     function () {
         return runLocally('which tar');
     }
@@ -43,8 +43,8 @@ add(
     [
         '.editorconfig',
         '.gitignore',
-        '.project.conf',
-        'hosts.yml',
+        './.project.conf',
+        './deploy.yml',
         'README.md',
         '.idea',
     ]
@@ -66,7 +66,7 @@ task('tar:create', function () {
     $excludes = implode(' ', $excludes);
     $source = parse(get('tar_source'));
 
-    runLocally("{{tar_bin_local}} {{tar_create_options}} {{tar_file_local}} $excludes $source");
+    runLocally("{{local/bin/tar}} {{tar_create_options}} {{tar_file_local}} $excludes $source");
 })->setPrivate();
 
 desc('Extracting tar file on host');

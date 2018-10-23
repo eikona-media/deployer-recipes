@@ -11,7 +11,7 @@ require 'recipe/contao.php';
 The recipe extends the symfony3 recipe of core deployer so you have to include this recipe in `deploy.php` too:
 
 ```php
-require 'deployer/recipe/symfony3.php';
+require 'recipe/symfony3.php';
 ```
 
 ### Optional Usage
