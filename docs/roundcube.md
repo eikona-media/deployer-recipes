@@ -11,7 +11,7 @@ require 'recipe/roundcube.php';
 The recipe extends the common recipe of core deployer so you have to include this recipe in `deploy.php` too:
 
 ```php
-require 'deployer/recipe/common.php';
+require 'recipe/common.php';
 ```
 
 ### Optional Usage
