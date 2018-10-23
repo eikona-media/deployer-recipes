@@ -34,6 +34,8 @@ require 'recipe/yarn.php';
 
 ## Tasks
 
+* ``build`` - build project
+
 * ``pim:installer:assets`` - install assets (called after ``deploy:vendors``)
 
 * ``pim:installer:dump-require-paths`` - dump required paths (called after ``pim:installer:assets``)
