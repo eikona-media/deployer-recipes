@@ -41,3 +41,7 @@ require 'recipe/yarn.php';
 * ``pim:installer:dump-require-paths`` - dump required paths (called after ``pim:installer:assets``)
 
 * ``yarn:compile`` - run webpack (called after ``pim:installer:dump-require-paths``)
+
+* ``doctrine:schema:update:dump-sql`` - dump database schema updates
+
+* ``doctrine:schema:update:force`` - update database schema

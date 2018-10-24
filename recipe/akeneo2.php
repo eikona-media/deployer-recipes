@@ -65,13 +65,27 @@ task('yarn:compile', function () {
     run('cd {{release_path}} && {{bin/yarn}} run webpack');
 });
 
-/*
+/**
+ * Doctrine schema update
+ */
+desc('Execute doctrine:schema:update:dump-sql');
+task('doctrine:schema:update:dump-sql', function () {
+    run('{{bin/php}} {{bin/console}} doctrine:schema:update --dump-sql {{console_options}}');
+});
+
+desc('Execute doctrine:schema:update:force');
+task('doctrine:schema:update:force', function () {
+    run('{{bin/php}} {{bin/console}} doctrine:schema:update --force {{console_options}}');
+});
+
+/**
  * Akeneo build
  */
+desc('Build your project');
 task('build', [
     'build:composer',
     'build:yarn',
-])->desc('Build your project');
+]);
 
 /*
  * Akeneo update shared dirs + parameters from repo
