@@ -44,6 +44,7 @@ add(
         '.editorconfig',
         '.gitignore',
         './.project.conf',
+        './.lando.yml',
         './deploy.yml',
         'README.md',
         '.idea',
