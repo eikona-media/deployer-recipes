@@ -14,6 +14,8 @@ require_once __DIR__.'/scp.php';
 
 add('exclude_paths', ['.gitlab-ci.yml']);
 
+set('scp_upload_config', ['timeout' => null]);
+
 desc('Upload code - git clone should be done by gitlab-ci');
 task(
     'deploy:update_code',
