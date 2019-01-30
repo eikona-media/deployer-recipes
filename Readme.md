@@ -5,7 +5,7 @@ This repository contains third party recipes to integrate with [deployer](https:
 ## Installing
 
 ~~~sh
-composer require eikona/deployer-recipes --dev
+composer require eikona-media/deployer-recipes --dev
 ~~~
 
 Include recipes in `deploy.php` file.
