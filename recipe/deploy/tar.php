@@ -43,11 +43,13 @@ add(
     [
         '.editorconfig',
         '.gitignore',
-        './.project.conf',
-        './.lando.yml',
-        './deploy.yml',
         'README.md',
         '.idea',
+        '.php_cs.dist',
+        './.lando.yml',
+        './.lando',
+        './.project.conf',
+        './deploy.yml',
     ]
 );
 
