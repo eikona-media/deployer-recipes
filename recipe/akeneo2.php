@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of EIKONA deployer recipe.
+ * This file is part of EIKONA Media deployer recipe.
  *
  * (c) eikona-media.de
  *
@@ -65,7 +65,7 @@ task('yarn:compile', function () {
     run('cd {{release_path}} && {{bin/yarn}} run webpack');
 });
 
-/**
+/*
  * Doctrine schema update
  */
 desc('Execute doctrine:schema:update:dump-sql');
@@ -78,7 +78,7 @@ task('doctrine:schema:update:force', function () {
     run('{{bin/php}} {{bin/console}} doctrine:schema:update --force {{console_options}}');
 });
 
-/**
+/*
  * Akeneo build
  */
 desc('Build your project');

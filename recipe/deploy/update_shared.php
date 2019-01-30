@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of EIKONA deployer recipe.
+ * This file is part of EIKONA Media deployer recipe.
  *
  * (c) eikona-media.de
  *
