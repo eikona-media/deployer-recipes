@@ -56,3 +56,7 @@ require 'recipe/symfony3.php';
 * ``contao:database:backup`` - backup database while deployment
 
     Requires non contao-core package [``bwein-net/contao-database-backup``](https://github.com/bwein-net/contao-database-backup) to be installed!
+
+* ``contao:database:update`` - update database while deployment
+
+    Requires non contao-core package [``fuzzyma/contao-database-commands-bundle``](https://github.com/fuzzyma/contao-database-commands-bundle) to be installed!
