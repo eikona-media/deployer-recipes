@@ -69,6 +69,27 @@ task(
 //before('deploy:symlink', 'contao:database:backup');
 
 /*
+ * Update database
+ * Requires non contao-core package `fuzzyma/contao-database-commands-bundle` to be installed
+ */
+desc('Update contao database');
+task(
+    'contao:database:update',
+    function () {
+        try {
+            run('{{bin/php}} {{bin/console}} contao:database:update {{console_options}}');
+        } catch (\Exception $exception) {
+            writeln('<comment>To update database setup "fuzzyma/contao-database-commands-bundle"</comment>');
+        }
+    }
+);
+
+// optionally add to deploy.php:
+//before('deploy:symlink', 'contao:database:update');
+// or
+//after('contao:database:backup', 'contao:database:update');
+
+/*
  * Upload with tar
  */
 

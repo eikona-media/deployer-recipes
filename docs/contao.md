@@ -22,6 +22,16 @@ require 'recipe/symfony3.php';
     add('shared_dirs', ['var/db_backups']);
     before('deploy:symlink', 'contao:database:backup');
     ```
+    
+* Database Update while deployment
+
+    ```php
+    before('deploy:symlink', 'contao:database:update');
+    ```
+    or with activated database backup: 
+    ```php
+    after('contao:database:backup', 'contao:database:update');
+    ```
 
 * Update shared dirs + parameters from repo - see: [update_shared](deploy/update_shared.md)
 
