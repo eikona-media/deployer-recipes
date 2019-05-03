@@ -18,10 +18,10 @@ set(
 );
 
 desc('Restart supervisor daemons');
-task('deploy:restart_supervisor_daemons', function() {
+task('deploy:restart_supervisor_daemons', function () {
     $daemons = \is_array(get('supervisor_daemons')) ? get('supervisor_daemons') : [];
     foreach ($daemons as $daemon) {
-        run('{{bin/supervisorctl}} restart ' . $daemon);
+        run('{{bin/supervisorctl}} restart '.$daemon);
     }
 });
 

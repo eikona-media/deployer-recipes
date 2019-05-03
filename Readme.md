@@ -41,7 +41,7 @@ require 'recipe/contao.php';
 | gitlab_ci      | [read](docs/deploy/gitlab_ci.md)     |
 | no_releases    | [read](docs/deploy/no_releases.md)   |
 | update_shared  | [read](docs/deploy/update_shared.md) |
-| supervisor     | [read](docs/deploy/supervisor.md) |
+| supervisor     | [read](docs/deploy/supervisor.md)    |
 
 
 ## More Doc + Recipes...
