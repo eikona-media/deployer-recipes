@@ -46,7 +46,7 @@ add(
         'README.md',
         '.idea',
         '.php_cs.dist',
-        './.lando.yml',
+        './.lando*.yml',
         './.lando',
         './.project.conf',
         './deploy.yml',

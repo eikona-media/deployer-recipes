@@ -39,8 +39,9 @@ require 'recipe/contao.php';
 | tar            | [read](docs/deploy/tar.md)           |
 | scp            | [read](docs/deploy/scp.md)           |
 | gitlab_ci      | [read](docs/deploy/gitlab_ci.md)     |
-| no_releases    | [read](docs/deploy/no_releases.md)    |
+| no_releases    | [read](docs/deploy/no_releases.md)   |
 | update_shared  | [read](docs/deploy/update_shared.md) |
+| supervisor     | [read](docs/deploy/supervisor.md)    |
 
 
 ## More Doc + Recipes...
