@@ -20,11 +20,7 @@ require_once __DIR__.'/build/composer.php';
  */
 
 // Shared files
-if (is_file(getcwd() . '/app/config/parameters.yml')) {
-    add('shared_files', ['app/config/parameters.yml']);
-} elseif (is_file(getcwd() . '/config/parameters.yml')) {
-    add('shared_files', ['config/parameters.yml']);
-}
+add('shared_files', ['app/config/parameters.yml']);
 
 // Contao shared dirs
 set('shared_dirs', ['assets/images', 'files', 'system/config', 'templates', 'var/logs', 'web/share']);
@@ -39,11 +35,7 @@ set('bin/console', '{{release_path}}/vendor/bin/contao-console');
  * Contao update shared dirs + parameters from repo
  */
 set('update_shared_dirs', ['files', 'templates']);
-if (is_file(getcwd().'/app/config/parameters.yml')) {
-    set('update_shared_parameters', 'app/config/parameters.yml');
-} elseif (is_file(getcwd().'/config/parameters.yml')) {
-    set('update_shared_parameters', 'config/parameters.yml');
-}
+set('update_shared_parameters', 'app/config/parameters.yml');
 
 // optionally add to deploy.php:
 //before('deploy:shared', 'deploy:update_shared_dirs');
