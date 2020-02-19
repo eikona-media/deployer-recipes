@@ -35,15 +35,15 @@ task(
     'deploy:update_shared_parameters',
     function () {
         try {
-            $fileTarget = get('update_shared_parameters_target');
+            $fileTarget = get('update_shared_parameters');
+            if (!empty($fileTarget)) {
+                writeln(
+                    '<comment>Configuration "update_shared_parameters" is deprecated. Use "update_shared_parameters_target".</comment>'
+                );
+            }
         } catch (ConfigurationException $e) {
             try {
-                $fileTarget = get('update_shared_parameters');
-                if (!empty($fileTarget)) {
-                    writeln(
-                        '<comment>Configuration "update_shared_parameters" is deprecated. Use "update_shared_parameters_target".</comment>'
-                    );
-                }
+                $fileTarget = get('update_shared_parameters_target');
             } catch (ConfigurationException $e) {
             }
         }
