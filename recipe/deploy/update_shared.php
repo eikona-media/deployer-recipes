@@ -10,6 +10,8 @@
 
 namespace Deployer;
 
+use Deployer\Exception\ConfigurationException;
+
 desc('Update shared dirs from repo');
 task(
     'deploy:update_shared_dirs',
@@ -32,13 +34,18 @@ desc('Update shared parameters for stage from repo');
 task(
     'deploy:update_shared_parameters',
     function () {
-        if (has('update_shared_parameters_target')) {
+        try {
             $fileTarget = get('update_shared_parameters_target');
-        } elseif (has('update_shared_parameters')) {
-            $fileTarget = get('update_shared_parameters');
-            writeln(
-                '<comment>Configuration "update_shared_parameters" is deprecated. Use "update_shared_parameters_target".</comment>'
-            );
+        } catch (ConfigurationException $e) {
+            try {
+                $fileTarget = get('update_shared_parameters');
+                if (!empty($fileTarget)) {
+                    writeln(
+                        '<comment>Configuration "update_shared_parameters" is deprecated. Use "update_shared_parameters_target".</comment>'
+                    );
+                }
+            } catch (ConfigurationException $e) {
+            }
         }
 
         if (empty($fileTarget)) {
@@ -49,8 +56,16 @@ task(
             return;
         }
 
-        $fileSource = has('update_shared_parameters_source') ? get('update_shared_parameters_source') : null;
-        $fileDelete = has('update_shared_parameters_delete') ? get('update_shared_parameters_delete') : null;
+        try {
+            $fileSource = get('update_shared_parameters_source');
+        } catch (ConfigurationException $e) {
+            $fileSource = null;
+        }
+        try {
+            $fileDelete = get('update_shared_parameters_delete');
+        } catch (ConfigurationException $e) {
+            $fileDelete = null;
+        }
 
         if (empty($fileSource) || $fileDelete === null) {
             $filePieces = explode('.', $fileTarget);
