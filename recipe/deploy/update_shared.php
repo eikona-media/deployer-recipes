@@ -32,19 +32,40 @@ desc('Update shared parameters for stage from repo');
 task(
     'deploy:update_shared_parameters',
     function () {
-        if (empty($file = get('update_shared_parameters')) && isVerbose()) {
-            writeln('<comment>Configuration "update_shared_parameters" not set</comment>');
+        if (get('update_shared_parameters_target') !== null) {
+            $fileTarget = get('update_shared_parameters_target');
+        } elseif (get('update_shared_parameters') !== null) {
+            $fileTarget = get('update_shared_parameters');
+            writeln(
+                '<comment>Configuration "update_shared_parameters" is deprecated. Use "update_shared_parameters_target".</comment>'
+            );
+        }
+
+        if (empty($fileTarget)) {
+            writeln(
+                '<comment>Configuration "update_shared_parameters_target" not set</comment>'
+            );
 
             return;
         }
 
-        $filePieces = explode('.', $file);
-        $prefix = implode('.', \array_slice($filePieces, 0, -1));
-        $extension = end($filePieces);
-        $fileStage = $prefix.'_{{stage}}.'.$extension;
+        $fileSource = get('update_shared_parameters_source');
+        $fileDelete = get('update_shared_parameters_delete');
 
-        if (!test("[ -f {{release_path}}/$fileStage ]") && isVerbose()) {
-            writeln('<comment>Parameters "'.$fileStage.'" for stage not found</comment>');
+        if (empty($fileSource) || $fileDelete === null) {
+            $filePieces = explode('.', $fileTarget);
+            $prefix = implode('.', \array_slice($filePieces, 0, -1));
+            $extension = end($filePieces);
+            if (empty($fileSource)) {
+                $fileSource = $prefix.'_{{stage}}.'.$extension;
+            }
+            if ($fileDelete === null) {
+                $fileDelete = $prefix.'_*';
+            }
+        }
+
+        if (!test("[ -f {{release_path}}/$fileSource ]") && isVerbose()) {
+            writeln('<comment>Source parameters "'.$fileSource.'" for stage not found</comment>');
 
             return;
         }
@@ -52,9 +73,10 @@ task(
         $sharedPath = '{{deploy_path}}/shared';
         $sudo = get('clear_use_sudo') ? 'sudo' : '';
 
-        run("$sudo cp -rv {{release_path}}/$fileStage $sharedPath/$file");
+        run("$sudo cp -rv {{release_path}}/$fileSource $sharedPath/$fileTarget");
 
-        $filesStages = $prefix.'_*';
-        run("$sudo rm -rf {{release_path}}/$filesStages");
+        if (!empty($fileDelete)) {
+            run("$sudo rm -rf {{release_path}}/$fileDelete");
+        }
     }
 )->setPrivate();

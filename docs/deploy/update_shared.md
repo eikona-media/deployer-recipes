@@ -20,18 +20,21 @@ require 'recipe/deploy/gitlab_ci.php';
 
 ## Tasks & Configuration
 
-* ``deploy:update_shared_dirs`` - updates shared dirs with config:
-   * ``update_shared_dirs`` as array - default: ``[]``
+* `deploy:update_shared_dirs` - updates shared dirs with config:
+   * `update_shared_dirs` as array - default: `[]`
 
-  Copies all defined dirs from ``{{release_path}}/$dir`` to ``{{deploy_path}}/shared``, to transfer changes from repo to shared folders.
+  Copies all defined dirs from `{{release_path}}/$dir` to `{{deploy_path}}/shared`, to transfer changes from repo to shared folders.
 
-* ``deploy:update_shared_parameters`` - updates shared parameters for stage with config:
+* `deploy:update_shared_parameters` - updates shared parameters for stage with config:
 
-   * ``update_shared_parameters`` file path as string - default: ``''``
+   * `update_shared_parameters` (deprecated - replaced by `update_shared_parameters_target`)
+   * `update_shared_parameters_target` file path as string - default: `''`
+   * `update_shared_parameters_source` (optional) can preset `$fileSource` instead of generate from target
+   * `update_shared_parameters_delete` (optional) can preset `$fileDelete` instead of generate from target
 
-  Explodes the file path in ``$prefix`` and ``$extension`` - and builds a new path ``$fileStage = $prefix.'_{{stage}}.'.$extension;``
+  Explodes the file path in `$prefix` and `$extension` - and builds a new path `$fileSource = $prefix.'_{{stage}}.'.$extension;`
 
-  Afterwards the from ``{{release_path}}/$fileStage`` will be copied to ``{{deploy_path}}/shared/{{update_shared_parameters}}``, to transfer changes of the stage from repo to shared file.
+  Afterwards the from `{{release_path}}/$fileSource` will be copied to `{{deploy_path}}/shared/{{update_shared_parameters_target}}`, to transfer changes of the stage from repo to shared file.
 
-  Finally, all ``$filesStages = $prefix.'_*';`` are deleted.
+  Finally, all `$fileDelete = $prefix.'_*';` are deleted.
 
