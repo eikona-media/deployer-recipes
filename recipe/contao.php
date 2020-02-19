@@ -32,7 +32,7 @@ set('bin/console', '{{release_path}}/vendor/bin/contao-console');
  * Contao update shared dirs + parameters from repo
  */
 set('update_shared_dirs', ['files', 'templates']);
-set('update_shared_parameters', 'app/config/parameters.yml');
+set('update_shared_parameters_target', 'app/config/parameters.yml');
 
 // optionally add to deploy.php:
 //before('deploy:shared', 'deploy:update_shared_dirs');

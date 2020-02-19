@@ -26,7 +26,7 @@ set('shared_files', ['config/config.php']);
  * Nextcloud update shared dirs + parameters from repo
  */
 set('update_shared_dirs', ['apps']);
-set('update_shared_parameters', 'config/config.php');
+set('update_shared_parameters_target', 'config/config.php');
 // optionally add to deploy.php:
 //before('deploy:shared', 'deploy:update_shared_dirs');
 //after('deploy:shared', 'deploy:update_shared_parameters');

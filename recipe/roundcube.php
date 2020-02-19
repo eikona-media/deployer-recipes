@@ -25,7 +25,7 @@ set('shared_files', ['config/config.inc.php']);
 /*
  * Roundcube update shared parameters from repo
  */
-set('update_shared_parameters', 'config/config.inc.php');
+set('update_shared_parameters_target', 'config/config.inc.php');
 // optionally add to deploy.php:
 //after('deploy:shared', 'deploy:update_shared_parameters');
 
