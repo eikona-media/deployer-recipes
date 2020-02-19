@@ -32,9 +32,9 @@ desc('Update shared parameters for stage from repo');
 task(
     'deploy:update_shared_parameters',
     function () {
-        if (get('update_shared_parameters_target') !== null) {
+        if (has('update_shared_parameters_target')) {
             $fileTarget = get('update_shared_parameters_target');
-        } elseif (get('update_shared_parameters') !== null) {
+        } elseif (has('update_shared_parameters')) {
             $fileTarget = get('update_shared_parameters');
             writeln(
                 '<comment>Configuration "update_shared_parameters" is deprecated. Use "update_shared_parameters_target".</comment>'
@@ -49,8 +49,8 @@ task(
             return;
         }
 
-        $fileSource = get('update_shared_parameters_source');
-        $fileDelete = get('update_shared_parameters_delete');
+        $fileSource = has('update_shared_parameters_source') ? get('update_shared_parameters_source') : null;
+        $fileDelete = has('update_shared_parameters_delete') ? get('update_shared_parameters_delete') : null;
 
         if (empty($fileSource) || $fileDelete === null) {
             $filePieces = explode('.', $fileTarget);
