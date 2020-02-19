@@ -19,9 +19,6 @@ require_once __DIR__.'/build/composer.php';
  * Contao Configuration
  */
 
-// Shared files
-add('shared_files', ['app/config/parameters.yml']);
-
 // Contao shared dirs
 set('shared_dirs', ['assets/images', 'files', 'system/config', 'templates', 'var/logs', 'web/share']);
 
