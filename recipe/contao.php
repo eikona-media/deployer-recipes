@@ -10,12 +10,21 @@
 
 namespace Deployer;
 
+use Deployer\Exception\RuntimeException;
+
 require_once __DIR__.'/deploy/update_shared.php';
 require_once __DIR__.'/build/composer.php';
 
 /*
  * Contao Configuration
  */
+
+// Shared files
+if (is_file(getcwd() . '/app/config/parameters.yml')) {
+    add('shared_files', ['app/config/parameters.yml']);
+} elseif (is_file(getcwd() . '/config/parameters.yml')) {
+    add('shared_files', ['config/parameters.yml']);
+}
 
 // Contao shared dirs
 set('shared_dirs', ['assets/images', 'files', 'system/config', 'templates', 'var/logs', 'web/share']);
@@ -30,7 +39,11 @@ set('bin/console', '{{release_path}}/vendor/bin/contao-console');
  * Contao update shared dirs + parameters from repo
  */
 set('update_shared_dirs', ['files', 'templates']);
-set('update_shared_parameters', 'app/config/parameters.yml');
+if (is_file(getcwd().'/app/config/parameters.yml')) {
+    set('update_shared_parameters', 'app/config/parameters.yml');
+} elseif (is_file(getcwd().'/config/parameters.yml')) {
+    set('update_shared_parameters', 'config/parameters.yml');
+}
 
 // optionally add to deploy.php:
 //before('deploy:shared', 'deploy:update_shared_dirs');
@@ -76,18 +89,42 @@ desc('Update contao database');
 task(
     'contao:database:update',
     function () {
+        // First try native update command (Contao >= 4.9)
         try {
-            run('{{bin/php}} {{bin/console}} contao:database:update {{console_options}}');
-        } catch (\Exception $exception) {
-            writeln('<comment>To update database setup "fuzzyma/contao-database-commands-bundle"</comment>');
+            if (version_compare(run('{{bin/php}} {{bin/console}} contao:version'), '4.9.0', '>=')) {
+                run('{{bin/php}} {{bin/console}} contao:migrate --schema-only {{console_options}}');
+
+                writeln('<comment>Please use the new contao:migrate task in your deploy.php!</comment>');
+
+                return;
+            }
+        } catch (RuntimeException $e) {
         }
+
+        // Then try command provided by contao-database-commands-bundle
+        try {
+            run('cd {{release_path}} && {{bin/composer}} show fuzzyma/contao-database-commands-bundle');
+        } catch (RuntimeException $e) {
+            writeln('<comment>To update database setup "fuzzyma/contao-database-commands-bundle"</comment>');
+            return;
+        }
+
+        run('{{bin/php}} {{bin/console}} contao:database:update -d {{console_options}}');
     }
 );
 
+// Run Contao migrations and database update
+task(
+    'contao:migrate',
+    function () {
+        run('{{bin/php}} {{bin/console}} contao:migrate {{console_options}}');
+    }
+)->desc('Run Contao migrations ');
+
 // optionally add to deploy.php:
-//before('deploy:symlink', 'contao:database:update');
+//before('deploy:symlink', 'contao:migrate');
 // or
-//after('contao:database:backup', 'contao:database:update');
+//after('contao:database:backup', 'contao:migrate');
 
 /*
  * Upload with tar
@@ -95,30 +132,35 @@ task(
 
 // Symfony exclude paths for upload
 add(
-        'exclude_paths',
-        [
-            './app/config/parameters.*',
-            './tests',
-            './var',
-            './web/bundles',
-            './web/*dev.php',
-        ]
+    'exclude_paths',
+    [
+        './app/config/parameters.*',
+        './config/parameters.*',
+        './tests',
+        './var',
+        '/app/Resources/contao/config/runonce*',
+        './web/bundles',
+        './web/*dev.php',
+    ]
 );
 
 // Contao exclude paths for upload
 add(
-        'exclude_paths',
-        [
-            './web/assets',
-            './web/files',
-            './web/share',
-            './web/system',
-        ]
+    'exclude_paths',
+    [
+        './web/assets',
+        './web/files',
+        './web/share',
+        './web/system',
+    ]
 );
 
 /*
  * Contao build
  */
-task('build', [
-    'build:composer',
-])->desc('Build your project');
+task(
+    'build',
+    [
+        'build:composer',
+    ]
+)->desc('Build your project');

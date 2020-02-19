@@ -61,7 +61,7 @@ task('tar:create', function () {
     $excludesDefault = ['.git', '.gitignore', '.gitmodules', './deploy.php'];
     $excludes = \is_array(get('exclude_paths')) ? get('exclude_paths') : [];
 
-    $excludes = array_merge($excludesDefault, array_filter($excludes));
+    $excludes = array_unique(array_merge($excludesDefault, array_filter($excludes)));
     foreach ($excludes as &$exclude) {
         $exclude = '--exclude="'.$exclude.'"';
     }
