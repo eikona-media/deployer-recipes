@@ -22,13 +22,13 @@ require 'recipe/symfony3.php';
     add('shared_dirs', ['var/db_backups']);
     before('deploy:symlink', 'contao:database:backup');
     ```
-    
+
 * Database Update while deployment
 
     ```php
     before('deploy:symlink', 'contao:database:update');
     ```
-    or with activated database backup: 
+    or with activated database backup:
     ```php
     after('contao:database:backup', 'contao:database:update');
     ```
@@ -60,3 +60,7 @@ require 'recipe/symfony3.php';
 * ``contao:database:update`` - update database while deployment
 
     Requires non contao-core package [``fuzzyma/contao-database-commands-bundle``](https://github.com/fuzzyma/contao-database-commands-bundle) to be installed!
+
+    > This Task is deprecated with `contao:migrate` since Contao 4.9
+
+* ``contao:migrate`` - execute contao migration while deployment
