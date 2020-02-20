@@ -98,7 +98,7 @@ task(
             return;
         }
 
-        run('{{bin/php}} {{bin/console}} contao:database:update -d {{console_options}}');
+        run('{{bin/php}} {{bin/console}} contao:database:update {{console_options}}');
     }
 );
 
