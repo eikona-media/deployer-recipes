@@ -5,7 +5,7 @@
 Include helper in `deploy.php` file.
 
 ```php
-require 'recipe/deploy/gitlab_ci.php';
+require 'recipe/deploy/update_shared.php';
 ```
 
 ### Usage
@@ -38,3 +38,9 @@ require 'recipe/deploy/gitlab_ci.php';
 
   Finally, all `$fileDelete = $prefix.'_*';` are deleted.
 
+  >  Example for `.env` files (`.env.ci_{{stage}}`)
+  >  ```php
+  >  set('update_shared_parameters_target', '.env');
+  >  set('update_shared_parameters_source', '.env.ci_{{stage}}');
+  >  set('update_shared_parameters_delete', '.env.*');
+  >  ```
