@@ -19,6 +19,7 @@ require 'recipe/contao.php';
 | Recipe     | Docs                        |
 | ---------- |:---------------------------:|
 | akeneo 2.* | [read](docs/akeneo2.md)     |
+| akeneo 4.* | [read](docs/akeneo4.md)     |
 | contao     | [read](docs/contao.md)      |
 | cycon      | [read](docs/cycon.md)       |
 | nextcloud  | [read](docs/nextcloud.md)   |
