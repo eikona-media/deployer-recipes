@@ -36,6 +36,7 @@ set('writable_dirs', [
     'app/uploads',
     'bin/backup',
     'var/cache',
+    'var/file_storage',
     'var/logs',
     'var/sessions',
     'public/media',
