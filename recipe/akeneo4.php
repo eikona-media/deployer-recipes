@@ -24,6 +24,7 @@ set('shared_dirs', [
     'app/archive',
     'app/file_storage',
     'app/uploads',
+    'var/file_storage',
     'var/logs',
     'var/sessions',
     'var/backups',
