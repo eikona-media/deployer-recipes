@@ -37,12 +37,15 @@ require 'recipe/contao.php';
 
 | Recipe         | Docs                                 |
 |----------------|:------------------------------------:|
-| tar            | [read](docs/deploy/tar.md)           |
-| scp            | [read](docs/deploy/scp.md)           |
+| cache          | [read](docs/deploy/cache.md)         |
+| cleanup        | [read](docs/deploy/cleanup.md)       |
 | gitlab_ci      | [read](docs/deploy/gitlab_ci.md)     |
+| maintenance    | [read](docs/deploy/maintenance.md)   |
 | no_releases    | [read](docs/deploy/no_releases.md)   |
-| update_shared  | [read](docs/deploy/update_shared.md) |
+| scp            | [read](docs/deploy/scp.md)           |
 | supervisor     | [read](docs/deploy/supervisor.md)    |
+| tar            | [read](docs/deploy/tar.md)           |
+| update_shared  | [read](docs/deploy/update_shared.md) |
 
 
 ## More Doc + Recipes...

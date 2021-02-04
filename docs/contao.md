@@ -8,7 +8,7 @@ Include recipe in `deploy.php` file.
 require 'recipe/contao.php';
 ```
 
-The recipe extends the symfony3 recipe of core deployer so you have to include this recipe in `deploy.php` too:
+The recipe extends the symfony3 recipe of core deployer, so you have to include this recipe in `deploy.php` too:
 
 ```php
 require 'recipe/symfony3.php';
@@ -47,7 +47,32 @@ require 'recipe/symfony3.php';
 
     Default file:  ``app/config/parameters.yml``
 
+    ```php
+    before('deploy:update_shared_dirs', 'deploy:clear_shared_dirs');
+    ```
+
 * For Gitlab-CI see: [gitlab_ci](deploy/gitlab_ci.md)
+
+* Clear cache
+
+    ```php
+    after('deploy:symlink', 'deploy:cache_status_clear');
+    after('deploy:symlink', 'deploy:cache_accelerator_clear');
+    ```
+
+* Maintenance mode while deployment
+
+    ```php
+    after('deploy:vendors', 'maintenance:enable');
+    after('deploy:symlink', 'maintenance:disable');
+    ```
+
+* Cleanup previous release
+
+    ```php
+    set('cleanup_previous_release_dirs', ['var/cache']);
+    before('cleanup', 'cleanup:previous:release');
+    ```
 
 ## Tasks
 

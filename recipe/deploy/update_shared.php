@@ -95,3 +95,15 @@ task(
         }
     }
 )->setPrivate();
+
+desc('Clear shared dirs');
+task(
+    'deploy:clear_shared_dirs',
+    function () {
+        $sharedPath = '{{deploy_path}}/shared';
+        foreach (array_filter(get('clear_shared_dirs')) as $dir) {
+            // Remove shared dir.
+            run("rm -rf $sharedPath/$dir");
+        }
+    }
+)->setPrivate();
