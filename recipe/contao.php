@@ -12,6 +12,7 @@ namespace Deployer;
 
 use Deployer\Exception\RuntimeException;
 
+require_once __DIR__.'/deploy/cleanup.php';
 require_once __DIR__.'/deploy/maintenance.php';
 require_once __DIR__.'/deploy/update_shared.php';
 require_once __DIR__.'/build/composer.php';
@@ -162,3 +163,7 @@ task(
 // optionally add to deploy.php:
 //after('deploy:vendors', 'maintenance:enable');
 //after('deploy:symlink', 'maintenance:disable');
+
+// optionally add to deploy.php:
+//set('cleanup_previous_release_dirs', ['var/cache']);
+//before('cleanup', 'cleanup:previous:release');

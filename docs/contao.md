@@ -53,6 +53,20 @@ require 'recipe/symfony3.php';
 
 * For Gitlab-CI see: [gitlab_ci](deploy/gitlab_ci.md)
 
+* Maintenance mode while deployment
+
+    ```php
+    after('deploy:vendors', 'maintenance:enable');
+    after('deploy:symlink', 'maintenance:disable');
+    ```
+
+* Cleanup previous release
+
+    ```php
+    set('cleanup_previous_release_dirs', ['var/cache']);
+    before('cleanup', 'cleanup:previous:release');
+    ```
+
 ## Tasks
 
 * ``contao:version`` - integrity check called before ``deploy:symlink``
@@ -68,10 +82,3 @@ require 'recipe/symfony3.php';
     > This Task is deprecated with `contao:migrate` since Contao 4.9
 
 * ``contao:migrate`` - execute contao migration while deployment
-
-* Maintenance mode while deployment
-
-    ```php
-    after('deploy:vendors', 'maintenance:enable');
-    after('deploy:symlink', 'maintenance:disable');
-    ```
