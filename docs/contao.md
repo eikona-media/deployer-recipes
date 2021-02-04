@@ -8,7 +8,7 @@ Include recipe in `deploy.php` file.
 require 'recipe/contao.php';
 ```
 
-The recipe extends the symfony3 recipe of core deployer so you have to include this recipe in `deploy.php` too:
+The recipe extends the symfony3 recipe of core deployer, so you have to include this recipe in `deploy.php` too:
 
 ```php
 require 'recipe/symfony3.php';
@@ -68,3 +68,10 @@ require 'recipe/symfony3.php';
     > This Task is deprecated with `contao:migrate` since Contao 4.9
 
 * ``contao:migrate`` - execute contao migration while deployment
+
+* Maintenance mode while deployment
+
+    ```php
+    after('deploy:vendors', 'maintenance:enable');
+    after('deploy:symlink', 'maintenance:disable');
+    ```

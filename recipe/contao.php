@@ -12,6 +12,7 @@ namespace Deployer;
 
 use Deployer\Exception\RuntimeException;
 
+require_once __DIR__.'/deploy/maintenance.php';
 require_once __DIR__.'/deploy/update_shared.php';
 require_once __DIR__.'/build/composer.php';
 
@@ -157,3 +158,7 @@ task(
         'build:composer',
     ]
 )->desc('Build your project');
+
+// optionally add to deploy.php:
+//after('deploy:vendors', 'maintenance:enable');
+//after('deploy:symlink', 'maintenance:disable');
