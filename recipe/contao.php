@@ -38,6 +38,10 @@ set('update_shared_parameters_target', 'app/config/parameters.yml');
 //before('deploy:shared', 'deploy:update_shared_dirs');
 //after('deploy:shared', 'deploy:update_shared_parameters');
 
+// optionally add to deploy.php:
+//set('clear_shared_dirs', []);
+//before('deploy:update_shared_dirs', 'deploy:clear_shared_dirs');
+
 /*
  * Contao version integrity check
  */

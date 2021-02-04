@@ -47,6 +47,10 @@ require 'recipe/symfony3.php';
 
     Default file:  ``app/config/parameters.yml``
 
+    ```php
+    before('deploy:update_shared_dirs', 'deploy:clear_shared_dirs');
+    ```
+
 * For Gitlab-CI see: [gitlab_ci](deploy/gitlab_ci.md)
 
 ## Tasks
