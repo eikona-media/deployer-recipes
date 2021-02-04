@@ -53,6 +53,13 @@ require 'recipe/symfony3.php';
 
 * For Gitlab-CI see: [gitlab_ci](deploy/gitlab_ci.md)
 
+* Clear cache
+
+    ```php
+    after('deploy:symlink', 'deploy:cache_status_clear');
+    after('deploy:symlink', 'deploy:cache_accelerator_clear');
+    ```
+
 * Maintenance mode while deployment
 
     ```php

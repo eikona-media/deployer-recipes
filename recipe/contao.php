@@ -12,6 +12,7 @@ namespace Deployer;
 
 use Deployer\Exception\RuntimeException;
 
+require_once __DIR__.'/deploy/cache.php';
 require_once __DIR__.'/deploy/cleanup.php';
 require_once __DIR__.'/deploy/maintenance.php';
 require_once __DIR__.'/deploy/update_shared.php';
@@ -159,6 +160,10 @@ task(
         'build:composer',
     ]
 )->desc('Build your project');
+
+// optionally add to deploy.php:
+//after('deploy:symlink', 'deploy:cache_status_clear');
+//after('deploy:symlink', 'deploy:cache_accelerator_clear');
 
 // optionally add to deploy.php:
 //after('deploy:vendors', 'maintenance:enable');
