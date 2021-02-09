@@ -171,4 +171,4 @@ task(
 
 // optionally add to deploy.php:
 //set('cleanup_previous_release_dirs', ['var/cache']);
-//before('cleanup', 'cleanup:previous:release');
+//before('cleanup', 'cleanup:previous_release');

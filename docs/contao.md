@@ -71,7 +71,7 @@ require 'recipe/symfony3.php';
 
     ```php
     set('cleanup_previous_release_dirs', ['var/cache']);
-    before('cleanup', 'cleanup:previous:release');
+    before('cleanup', 'cleanup:previous_release');
     ```
 
 ## Tasks
