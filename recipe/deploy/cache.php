@@ -10,8 +10,6 @@
 
 namespace Deployer;
 
-use Deployer\Exception\ConfigurationException;
-
 desc('Clear status cache');
 task(
     'deploy:cache_status_clear',
@@ -29,7 +27,7 @@ task(
         } catch (\RuntimeException $e) {
             writeln("\r\033[1A\033[40C … skipped");
 
-            /** @noinspection PhpUndefinedMethodInspection */
+            /* @noinspection PhpUndefinedMethodInspection */
             output()->setWasWritten(false);
 
             return;

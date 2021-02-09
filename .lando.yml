@@ -1,0 +1,18 @@
+name: eimed-deployer-recipes
+services:
+    appserver:
+        type: php:7.3
+        overrides:
+            environment:
+                COMPOSER_CACHE_DIR: "/lando/composer_cache"
+
+tooling:
+    composer:
+        service: appserver
+        description: Run composer commands
+        cmd: php -d memory_limit=-1 /usr/local/bin/composer
+
+    cs-fixer:
+        service: appserver
+        description: Run cs-fixer
+        cmd: php -d memory_limit=-1 /usr/local/bin/composer cs-fixer

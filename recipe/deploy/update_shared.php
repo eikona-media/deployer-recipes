@@ -67,14 +67,14 @@ task(
             $fileDelete = null;
         }
 
-        if (empty($fileSource) || $fileDelete === null) {
+        if (empty($fileSource) || null === $fileDelete) {
             $filePieces = explode('.', $fileTarget);
             $prefix = implode('.', \array_slice($filePieces, 0, -1));
             $extension = end($filePieces);
             if (empty($fileSource)) {
                 $fileSource = $prefix.'_{{stage}}.'.$extension;
             }
-            if ($fileDelete === null) {
+            if (null === $fileDelete) {
                 $fileDelete = $prefix.'_*';
             }
         }

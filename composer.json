@@ -22,11 +22,21 @@
         }
     ],
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.3"
+    },
+    "require-dev": {
+        "deployer/deployer": "^6.3",
+        "deployer/recipes": "^6.2",
+        "symplify/easy-coding-standard": "^9.0"
     },
     "autoload": {
         "files": [
             "autoload.php"
+        ]
+    },
+    "scripts": {
+        "cs-fixer": [
+            "vendor/bin/ecs check --fix --ansi"
         ]
     }
 }

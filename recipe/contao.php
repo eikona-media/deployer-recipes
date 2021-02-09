@@ -102,6 +102,7 @@ task(
             run('cd {{release_path}} && {{bin/composer}} show fuzzyma/contao-database-commands-bundle');
         } catch (RuntimeException $e) {
             writeln('<comment>To update database setup "fuzzyma/contao-database-commands-bundle"</comment>');
+
             return;
         }
 
@@ -166,9 +167,15 @@ task(
 //after('deploy:symlink', 'deploy:cache_accelerator_clear');
 
 // optionally add to deploy.php:
+//before('deploy:clear_shared_dirs', 'maintenance:enable:previous_release');
+// or
+//before('deploy:update_shared_dirs', 'maintenance:enable:previous_release');
+// or
+//before('contao:migrate', 'maintenance:enable:previous_release');
+
 //after('deploy:vendors', 'maintenance:enable');
 //after('deploy:symlink', 'maintenance:disable');
 
 // optionally add to deploy.php:
 //set('cleanup_previous_release_dirs', ['var/cache']);
-//before('cleanup', 'cleanup:previous:release');
+//before('cleanup', 'cleanup:previous_release');

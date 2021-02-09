@@ -10,11 +10,9 @@
 
 namespace Deployer;
 
-use Deployer\Exception\ConfigurationException;
-
 desc('Cleanup previous release');
 task(
-    'cleanup:previous:release',
+    'cleanup:previous_release',
     function () {
         if (has('previous_release')) {
             $sudo = get('clear_use_sudo') ? 'sudo' : '';

@@ -17,9 +17,7 @@ task('deploy:prepare', function () {
     // Check if shell is POSIX-compliant
     $result = run('echo $0');
     if (!str_contains($result, 'bash') && !str_contains($result, 'sh')) {
-        throw new \RuntimeException(
-            'Shell on your server is not POSIX-compliant. Please change to sh, bash or similar.'
-        );
+        throw new \RuntimeException('Shell on your server is not POSIX-compliant. Please change to sh, bash or similar.');
     }
     run('if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi');
 
