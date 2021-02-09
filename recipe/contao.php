@@ -166,6 +166,12 @@ task(
 //after('deploy:symlink', 'deploy:cache_accelerator_clear');
 
 // optionally add to deploy.php:
+//before('deploy:clear_shared_dirs', 'maintenance:enable:previous_release');
+// or
+//before('deploy:update_shared_dirs', 'maintenance:enable:previous_release');
+// or
+//before('contao:migrate', 'maintenance:enable:previous_release');
+
 //after('deploy:vendors', 'maintenance:enable');
 //after('deploy:symlink', 'maintenance:disable');
 

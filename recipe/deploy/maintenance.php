@@ -12,6 +12,16 @@ namespace Deployer;
 
 use Deployer\Exception\ConfigurationException;
 
+desc('Enable maintenance mode for previous release');
+task(
+    'maintenance:enable:previous_release',
+    function () {
+        if (has('previous_release')) {
+            run('cd {{previous_release}} && {{bin/php}} {{bin/console}} lexik:maintenance:lock {{console_options}}');
+        }
+    }
+)->setPrivate();
+
 desc('Enable maintenance mode');
 task(
     'maintenance:enable',

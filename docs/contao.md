@@ -61,6 +61,14 @@ require 'recipe/symfony3.php';
     ```
 
 * Maintenance mode while deployment
+    For previous release:
+    ```php
+    before('deploy:clear_shared_dirs', 'maintenance:enable:previous_release');
+    // or
+    before('deploy:update_shared_dirs', 'maintenance:enable:previous_release');
+    // or
+    before('contao:migrate', 'maintenance:enable:previous_release');
+    ```
 
     ```php
     after('deploy:vendors', 'maintenance:enable');
