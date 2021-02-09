@@ -10,8 +10,6 @@
 
 namespace Deployer;
 
-use Deployer\Exception\ConfigurationException;
-
 desc('Cleanup previous release');
 task(
     'cleanup:previous_release',

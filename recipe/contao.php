@@ -102,6 +102,7 @@ task(
             run('cd {{release_path}} && {{bin/composer}} show fuzzyma/contao-database-commands-bundle');
         } catch (RuntimeException $e) {
             writeln('<comment>To update database setup "fuzzyma/contao-database-commands-bundle"</comment>');
+
             return;
         }
 

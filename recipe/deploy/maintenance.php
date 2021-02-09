@@ -10,8 +10,6 @@
 
 namespace Deployer;
 
-use Deployer\Exception\ConfigurationException;
-
 desc('Enable maintenance mode for previous release');
 task(
     'maintenance:enable:previous_release',
