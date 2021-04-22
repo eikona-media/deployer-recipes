@@ -35,5 +35,5 @@ set('build_composer_dump_autoload_options', '{{build_composer_dump_autoload_acti
 
 desc('Dump composer autoload');
 task('build:composer:dump-autoload', function () {
-    runLocally('cd {{build_composer_path}} && {{local/bin/php}} {{local/bin/composer}} {{build_composer_dump_autoload_options}} {{build_composer_dump_autoload_options_extra}}', get('build_composer_dump_autoload_options_extra'));
+    runLocally('cd {{build_composer_path}} && {{local/bin/php}} {{local/bin/composer}} {{build_composer_dump_autoload_options}} {{build_composer_dump_autoload_options_extra}}', get('build_composer_run_options'));
 });
