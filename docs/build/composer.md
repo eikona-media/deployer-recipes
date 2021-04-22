@@ -16,3 +16,12 @@ require 'recipe/build/composer.php';
     * ``build_composer_path`` - default: ``./``
     * ``build_composer_action`` - default: ``install``
     * ``build_composer_options`` - default: ``{{build_composer_action}} --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts``
+    * ``build_composer_options_extra`` - default: ````
+
+* ``build:composer:dump-autoload`` - dump composer autoload with config:
+  * ``local/bin/php`` - default: ``which php``
+  * ``local/bin/composer`` - default: ``which composer``
+  * ``build_composer_path`` - default: ``./``
+  * ``build_composer_dump_autoload_action`` - default: ``dump-autoload``
+  * ``build_composer_dump_autoload_options`` - default: ``{{build_composer_dump_autoload_action}} -o``
+  * ``build_composer_dump_autoload_options_extra`` - default: ````
