@@ -8,13 +8,13 @@ Include recipe in `deploy.php` file.
 require 'recipe/akeneo4.php';
 ```
 
-The recipe extends the symfony recipe of core deployer so you have to include this recipe in `deploy.php` too:
+The recipe extends the symfony recipe of core deployer, so you have to include this recipe in `deploy.php` too:
 
 ```php
 require 'recipe/symfony4.php';
 ```
 
-The recipe extends the yarn recipe of core deployer recipes so you have to include this recipe in `deploy.php` too:
+The recipe extends the yarn recipe of core deployer recipes, so you have to include this recipe in `deploy.php` too:
 
 ```php
 require 'recipe/yarn.php';
