@@ -35,8 +35,8 @@
         ]
     },
     "scripts": {
-        "cs-fixer": [
-            "vendor/bin/ecs check --fix --ansi"
+        "ecs": [
+            "@php vendor/bin/ecs check --fix --ansi"
         ]
     }
 }

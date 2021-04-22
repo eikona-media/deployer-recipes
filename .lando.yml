@@ -3,16 +3,27 @@ services:
     appserver:
         type: php:7.3
         overrides:
+            extra_hosts:
+                - ${LANDO_HOST_IP_DEV:-host}:host-gateway
             environment:
+                PHP_IDE_CONFIG: "serverName=lando"
                 COMPOSER_CACHE_DIR: "/lando/composer_cache"
-
+                XDEBUG_SESSION_START: lando
+            volumes:
+                - /app/vendor
+                - ./vendor:/host_vendor
 tooling:
     composer:
         service: appserver
         description: Run composer commands
         cmd: php -d memory_limit=-1 /usr/local/bin/composer
 
-    cs-fixer:
+    ecs:
         service: appserver
         description: Run cs-fixer
-        cmd: php -d memory_limit=-1 /usr/local/bin/composer cs-fixer
+        cmd: php -d memory_limit=-1 /usr/local/bin/composer ecs
+
+events:
+    post-composer:
+        - echo "Sync vendor to host..."
+        - rsync -rtzL --delete --info=progress2 /app/vendor/ /host_vendor/
