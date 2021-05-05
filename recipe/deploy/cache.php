@@ -36,3 +36,17 @@ task(
         run('{{bin/php}} {{bin/console}} cache:accelerator:clear {{console_options}}');
     }
 )->setPrivate();
+
+set('public_url', '');
+set('opcache_webroot', 'web');
+set('opcache_filename', 'opcache.php');
+
+desc('Reset OPcache');
+task(
+    'deploy:opcache_reset',
+    static function () {
+        run(
+            'cd {{release_path}} && echo "<?php opcache_reset();" > {{opcache_webroot}}/{{opcache_filename}} && curl -sL {{public_url}}/{{opcache_filename}} && rm {{opcache_webroot}}/{{opcache_filename}}'
+        );
+    }
+)->setPrivate();
