@@ -41,10 +41,25 @@ require 'recipe/symfony4.php';
     ```php
     after('deploy:symlink', 'deploy:cache_status_clear');
     after('deploy:symlink', 'deploy:cache_accelerator_clear');
+    // or
+    after('deploy:symlink', 'deploy:opcache_reset'); // don't forget to set `public_url` per stage
     ```
 
 ## Tasks
 
-* ``build`` - build project and dump autoload after `composer install --no-scripts`
+* `build` - build project with `build:composer, shopware:build:recovery, shopware:build:js`
 
-* ``deploy:generate-jwt-secret`` - generate JWT Secret, if it does not exist (called after ``deploy:vendors``)
+* `shopware:build:recovery` - build shopware recovery (called while `build`)
+
+* `shopware:build:js` - build shopware Javascript (called while `build`)
+
+* `shopware:install:lock` - touch shopware `install.lock` (called before `deploy:vendors`)
+
+* `shopware:generate-jwt-secret` - generate JWT Secret, if it does not exist (called after `deploy:vendors`)
+
+* `shopware:compile:theme` - compile shopware theme (called after `deploy:cache:clear`)
+
+* `shopware:migrate` - migrate shopware database
+
+* `shopware:cache:warmup` - warmup shopware http cache (called after `deploy:cache:warmup`)
+
