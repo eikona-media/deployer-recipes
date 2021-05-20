@@ -55,7 +55,11 @@ require 'recipe/symfony4.php';
 
 * `shopware:install:lock` - touch shopware `install.lock` (called before `deploy:vendors`)
 
+* `shopware:bundle:dump` - dump bundle config (called before `deploy:vendors`)
+
 * `shopware:generate-jwt-secret` - generate JWT Secret, if it does not exist (called after `deploy:vendors`)
+
+* `shopware:asset:install` - install assets (called after `deploy:vendors`)
 
 * `shopware:compile:theme` - compile shopware theme (called after `deploy:cache:clear`)
 

@@ -141,6 +141,18 @@ task(
 before('deploy:vendors', 'shopware:install:lock');
 
 /*
+ * Dump bundle config
+ */
+desc('Dump bundle config');
+task(
+    'shopware:bundle:dump',
+    function () {
+        run('{{bin/php}} {{bin/console}} bundle:dump {{console_options}}');
+    }
+);
+before('deploy:vendors', 'shopware:bundle:dump');
+
+/*
  * Generate JWT Secret, if it does not exist
  */
 desc('Generate JWT Secret');
@@ -154,6 +166,18 @@ task(
     }
 );
 after('deploy:vendors', 'shopware:generate-jwt-secret');
+
+/*
+ * Install assets
+ */
+desc('Install assets');
+task(
+    'shopware:asset:install',
+    function () {
+        run('{{bin/php}} {{bin/console}} asset:install {{console_options}}');
+    }
+);
+after('deploy:vendors','shopware:asset:install');
 
 /*
  * Compile shopware theme
