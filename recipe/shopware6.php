@@ -82,11 +82,12 @@ task(
     }
 );
 
+set('build_shopware_js_run_options', ['env' => ['CI' => true], 'timeout' => null]);
 desc('Build shopware Javascript');
 task(
     'shopware:build:js',
     static function () {
-        runLocally('cd ./ && bash bin/build-js.sh', ['env' => ['CI' => true]]);
+        runLocally('cd ./ && bash bin/build-js.sh', get('build_shopware_js_run_options'));
     }
 );
 
