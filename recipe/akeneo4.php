@@ -28,6 +28,7 @@ set('shared_dirs', [
     'var/logs',
     'var/sessions',
     'var/backups',
+    'var/file_storage',
 ]);
 
 // Akeneo writeable dirs
@@ -40,6 +41,7 @@ set('writable_dirs', [
     'var/file_storage',
     'var/logs',
     'var/sessions',
+    'var/file_storage',
     'public/media',
 ]);
 
