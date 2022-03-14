@@ -82,7 +82,7 @@ task(
     }
 );
 
-set('build_shopware_js_run_options', ['env' => ['CI' => true, 'SHOPWARE_SKIP_BUNDLE_DUMP' => true, 'SHOPWARE_SKIP_ASSET_COPY' => true, 'SHOPWARE_SKIP_THEME_COMPILE' => true], 'timeout' => null]);
+set('build_shopware_js_run_options', ['env' => ['CI' => true, 'SHOPWARE_SKIP_BUNDLE_DUMP' => true, 'SHOPWARE_SKIP_FEATURE_DUMP' => true, 'SHOPWARE_SKIP_ASSET_COPY' => true, 'SHOPWARE_SKIP_THEME_COMPILE' => true], 'timeout' => null]);
 desc('Build shopware Javascript');
 task(
     'shopware:build:js',
