@@ -65,15 +65,27 @@ desc('Backup contao database');
 task(
     'contao:database:backup',
     function () {
+        // First try native backup command (Contao >= 4.13)
+        try {
+            if (version_compare(run('{{bin/php}} {{bin/console}} contao:version'), '4.13.0', '>=')) {
+                run('{{bin/php}} {{bin/console}} contao:backup:create {{console_options}}');
+                return;
+            }
+        } catch (RuntimeException $e) {
+        }
+
+        // Then try command provided by contao-database-backup
         try {
             run('{{bin/php}} {{bin/console}} bwein:database:backup deploy {{console_options}}');
-        } catch (\Exception $exception) {
+        } catch (RuntimeException $exception) {
             writeln('<comment>To backup database setup "bwein-net/contao-database-backup"</comment>');
         }
     }
 );
 
 // optionally add to deploy.php:
+//add('shared_dirs', ['var/backups']);
+// or before Contao 4.13
 //add('shared_dirs', ['var/db_backups']);
 //before('deploy:symlink', 'contao:database:backup');
 
@@ -119,6 +131,7 @@ task(
 )->desc('Run Contao migrations ');
 
 // optionally add to deploy.php:
+//add('shared_dirs', ['var/backups']);
 //before('deploy:symlink', 'contao:migrate');
 // or
 //after('contao:database:backup', 'contao:migrate');
