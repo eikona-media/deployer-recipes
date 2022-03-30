@@ -18,8 +18,10 @@ require 'recipe/deploy/maintenance.php';
 
 ## Tasks & Configuration
 
-* `maintenance:enable:previous_release` - enable the lexik maintenance mode for the previous release
+For contao >= 4.13 this helper tries to execute the contao maintenance mode command before the lexik maintenance mode command.
 
-* `maintenance:enable` - enable the lexik maintenance mode
+* `maintenance:enable:previous_release` - enable the contao or lexik maintenance mode for the previous release
 
-* `maintenance:disable` - disable the lexik maintenance mode
+* `maintenance:enable` - enable the contao or lexik maintenance mode
+
+* `maintenance:disable` - disable the contao or lexik maintenance mode

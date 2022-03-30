@@ -1,7 +1,7 @@
 name: eimed-deployer-recipes
 services:
     appserver:
-        type: php:7.3
+        type: php:7.4
         overrides:
             extra_hosts:
                 - ${LANDO_HOST_IP_DEV:-host}:host-gateway
