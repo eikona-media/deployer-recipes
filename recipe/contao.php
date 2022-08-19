@@ -21,9 +21,10 @@ require_once __DIR__.'/build/composer.php';
 /*
  * Contao Configuration
  */
+set('contao_webroot', 'web');
 
 // Contao shared dirs
-set('shared_dirs', ['assets/images', 'files', 'system/config', 'templates', 'var/logs', 'web/share']);
+set('shared_dirs', ['assets/images', 'files', 'system/config', 'templates', 'var/logs', '{{contao_webroot}}/share']);
 
 // Contao writable dirs
 set('writable_dirs', []);
@@ -149,8 +150,8 @@ add(
         './tests',
         './var',
         '/app/Resources/contao/config/runonce*',
-        './web/bundles',
-        './web/*dev.php',
+        './{{contao_webroot}}/bundles',
+        './{{contao_webroot}}/*dev.php',
     ]
 );
 
@@ -158,10 +159,10 @@ add(
 add(
     'exclude_paths',
     [
-        './web/assets',
-        './web/files',
-        './web/share',
-        './web/system',
+        './{{contao_webroot}}/assets',
+        './{{contao_webroot}}/files',
+        './{{contao_webroot}}/share',
+        './{{contao_webroot}}/system',
     ]
 );
 

@@ -16,6 +16,11 @@ require 'recipe/symfony4.php';
 
 ### Optional Usage
 
+* Set the webroot directory - default: `web`
+    ```php
+    set('contao_webroot', 'public');
+    ```
+
 * Database Backup while deployment
 
     This config is useful for Contao < 4.13 without backup while database migration
