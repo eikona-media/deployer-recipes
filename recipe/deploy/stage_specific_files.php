@@ -30,7 +30,13 @@ task(
             run("$sudo cp -rv {{release_path}}/$fileSource {{release_path}}/$fileTarget");
 
             if (!empty($fileDelete)) {
-                run("$sudo rm -rf {{release_path}}/$fileDelete");
+                if (is_string($fileDelete)) {
+                    run("$sudo rm -rf {{release_path}}/$fileDelete");
+                } elseif (is_array($fileDelete)) {
+                    foreach ($fileDelete as $fileDeleteItem) {
+                        run("$sudo rm -rf {{release_path}}/$fileDeleteItem");
+                    }
+                }
             }
         }
     }
