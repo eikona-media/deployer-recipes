@@ -18,7 +18,7 @@ require 'recipe/deploy/tar.php';
     * ``tar_source`` - default: ``./``
 
 * ``tar:extract`` - extracts a tar file with config:
-    * ``tar_bin_host`` - default: ``locateBinaryPath('tar')``
+    * ``tar_bin_host`` - default: ``which('tar')``
     * ``tar_extract_options`` - default: ``xfzop``
     * ``tar_file_host`` - default: ``get('deploy_path').'/'.basename(get('tar_file_local'))``
     * ``tar_destination`` - default: ``{{release_path}}/``

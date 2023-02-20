@@ -24,7 +24,7 @@ set(
 set(
     'tar_bin_host',
     function () {
-        return locateBinaryPath('tar');
+        return which('tar');
     }
 );
 
