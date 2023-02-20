@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Deployer;
 
-use Deployer\Exception\RuntimeException;
+use Deployer\Exception\RunException;
 
 require_once __DIR__.'/deploy/cache.php';
 require_once __DIR__.'/deploy/cleanup.php';
@@ -73,13 +73,13 @@ task(
                 run('{{bin/php}} {{bin/console}} contao:backup:create {{console_options}}');
                 return;
             }
-        } catch (RuntimeException $e) {
+        } catch (RunException) {
         }
 
         // Then try command provided by contao-database-backup
         try {
             run('{{bin/php}} {{bin/console}} bwein:database:backup deploy {{console_options}}');
-        } catch (RuntimeException $exception) {
+        } catch (RunException) {
             writeln('<comment>To backup database setup "bwein-net/contao-database-backup"</comment>');
         }
     }
@@ -108,13 +108,13 @@ task(
 
                 return;
             }
-        } catch (RuntimeException $e) {
+        } catch (RunException) {
         }
 
         // Then try command provided by contao-database-commands-bundle
         try {
             run('cd {{release_path}} && {{bin/composer}} show fuzzyma/contao-database-commands-bundle');
-        } catch (RuntimeException $e) {
+        } catch (RunException) {
             writeln('<comment>To update database setup "fuzzyma/contao-database-commands-bundle"</comment>');
 
             return;

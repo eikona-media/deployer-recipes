@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Deployer;
 
-use Deployer\Exception\RuntimeException;
+use Deployer\Exception\RunException;
 
 desc('Enable maintenance mode for previous release');
 task(
@@ -21,7 +21,7 @@ task(
             try {
                 run('cd {{previous_release}} && {{bin/php}} {{bin/console}} contao:maintenance-mode enable {{console_options}}');
                 return;
-            } catch (RuntimeException $e) {
+            } catch (RunException) {
             }
             run('cd {{previous_release}} && {{bin/php}} {{bin/console}} lexik:maintenance:lock {{console_options}}');
         }
@@ -35,7 +35,7 @@ task(
         try {
             run('{{bin/php}} {{bin/console}} contao:maintenance-mode enable {{console_options}}');
             return;
-        } catch (RuntimeException $e) {
+        } catch (RunException) {
         }
         run('{{bin/php}} {{bin/console}} lexik:maintenance:lock {{console_options}}');
     }
@@ -48,7 +48,7 @@ task(
         try {
             run('{{bin/php}} {{bin/console}} contao:maintenance-mode disable {{console_options}}');
             return;
-        } catch (RuntimeException $e) {
+        } catch (RunException) {
         }
         run('{{bin/php}} {{bin/console}} lexik:maintenance:unlock {{console_options}}');
     }
