@@ -62,8 +62,6 @@ add(
 /*
  * Deploy Configuration
  */
-inventory('deploy.yml');
-set('default_stage', 'dev');
 set('default_timeout', 900);
 set('keep_releases', 2);
 
