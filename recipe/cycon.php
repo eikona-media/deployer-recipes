@@ -48,7 +48,7 @@ task(
 )->desc('Deploy your project');
 
 // Display success message on completion
-after('deploy', 'success');
+after('deploy', 'deploy:success');
 
 /*
  * Cycon build
