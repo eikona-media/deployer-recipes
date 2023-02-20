@@ -17,7 +17,7 @@ task(
     function () {
         \clearstatcache(true);
     }
-)->setPrivate();
+)->hidden();
 
 desc('Clear accelerator cache');
 task(
@@ -36,7 +36,7 @@ task(
 
         run('{{bin/php}} {{bin/console}} cache:accelerator:clear {{console_options}}');
     }
-)->setPrivate();
+)->hidden();
 
 set('public_url', '');
 set('opcache_webroot', 'web');
@@ -50,4 +50,4 @@ task(
             'cd {{release_path}} && echo "<?php opcache_reset();" > {{opcache_webroot}}/{{opcache_filename}} && curl -sL {{public_url}}/{{opcache_filename}} && rm {{opcache_webroot}}/{{opcache_filename}}'
         );
     }
-)->setPrivate();
+)->hidden();

@@ -71,7 +71,7 @@ task(
             );
         }
     }
-)->setPrivate();
+)->hidden();
 
 desc('Copying files to host with tar');
 task(
@@ -86,4 +86,4 @@ task(
         invoke('tar:extract');
         invoke('tar:cleanup');
     }
-)->setPrivate();
+)->hidden();

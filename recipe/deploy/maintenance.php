@@ -26,7 +26,7 @@ task(
             run('cd {{previous_release}} && {{bin/php}} {{bin/console}} lexik:maintenance:lock {{console_options}}');
         }
     }
-)->setPrivate();
+)->hidden();
 
 desc('Enable maintenance mode');
 task(
@@ -39,7 +39,7 @@ task(
         }
         run('{{bin/php}} {{bin/console}} lexik:maintenance:lock {{console_options}}');
     }
-)->setPrivate();
+)->hidden();
 
 desc('Disable maintenance mode');
 task(
@@ -52,4 +52,4 @@ task(
         }
         run('{{bin/php}} {{bin/console}} lexik:maintenance:unlock {{console_options}}');
     }
-)->setPrivate();
+)->hidden();

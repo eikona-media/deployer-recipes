@@ -71,17 +71,17 @@ task('tar:create', function () {
     $source = parse(get('tar_source'));
 
     runLocally("{{local/bin/tar}} {{tar_create_options}} {{tar_file_local}} $excludes $source");
-})->setPrivate();
+})->hidden();
 
 desc('Extracting tar file on host');
 task('tar:extract', function () {
     $destination = parse(get('tar_destination'));
     run("{{tar_bin_host}} {{tar_extract_options}} {{tar_file_host}} -C $destination");
-})->setPrivate();
+})->hidden();
 
 desc('Removing tar files');
 task('tar:cleanup', function () {
     $sudo = get('clear_use_sudo') ? 'sudo' : '';
     run("$sudo rm -rf {{tar_file_host}}");
     runLocally("$sudo rm -rf {{tar_file_local}}");
-})->setPrivate();
+})->hidden();

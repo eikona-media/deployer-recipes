@@ -22,4 +22,4 @@ task(
             }
         }
     }
-)->setPrivate();
+)->hidden();

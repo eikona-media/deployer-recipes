@@ -29,7 +29,7 @@ task(
             }
         }
     }
-)->setPrivate();
+)->hidden();
 
 desc('Update shared parameters for stage from repo');
 task(
@@ -95,7 +95,7 @@ task(
             run("$sudo rm -rf {{release_path}}/$fileDelete");
         }
     }
-)->setPrivate();
+)->hidden();
 
 desc('Clear shared dirs');
 task(
@@ -107,4 +107,4 @@ task(
             run("rm -rf $sharedPath/$dir");
         }
     }
-)->setPrivate();
+)->hidden();
