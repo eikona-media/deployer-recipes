@@ -66,6 +66,7 @@ task('tar:create', function () {
     foreach ($excludes as &$exclude) {
         $exclude = '--exclude="'.$exclude.'"';
     }
+    unset($exclude);
 
     $excludes = implode(' ', $excludes);
     $source = parse(get('tar_source'));

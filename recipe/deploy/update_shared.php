@@ -42,10 +42,10 @@ task(
                     '<comment>Configuration "update_shared_parameters" is deprecated. Use "update_shared_parameters_target".</comment>'
                 );
             }
-        } catch (ConfigurationException $e) {
+        } catch (ConfigurationException) {
             try {
                 $fileTarget = get('update_shared_parameters_target');
-            } catch (ConfigurationException $e) {
+            } catch (ConfigurationException) {
             }
         }
 
@@ -59,12 +59,12 @@ task(
 
         try {
             $fileSource = get('update_shared_parameters_source');
-        } catch (ConfigurationException $e) {
+        } catch (ConfigurationException) {
             $fileSource = null;
         }
         try {
             $fileDelete = get('update_shared_parameters_delete');
-        } catch (ConfigurationException $e) {
+        } catch (ConfigurationException) {
             $fileDelete = null;
         }
 

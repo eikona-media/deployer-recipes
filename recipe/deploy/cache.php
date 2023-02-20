@@ -25,7 +25,7 @@ task(
     function () {
         try {
             run('cd {{release_path}} && {{bin/composer}} show smart-core/accelerator-cache-bundle');
-        } catch (\RuntimeException $e) {
+        } catch (\RuntimeException) {
             writeln("\r\033[1A\033[40C … skipped");
 
             /* @noinspection PhpUndefinedMethodInspection */
