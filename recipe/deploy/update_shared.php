@@ -80,7 +80,7 @@ task(
             }
         }
 
-        if (!test("[ -f {{release_path}}/$fileSource ]") && isVerbose()) {
+        if (!test("[ -f {{release_path}}/$fileSource ]") && output()->isVerbose()) {
             writeln('<comment>Source parameters "'.$fileSource.'" for stage not found</comment>');
 
             return;
