@@ -30,22 +30,22 @@ set('release_path', function () {
     return get('deploy_path');
 });
 
-task('deploy:release', function () {
+task('deploy:release', static function () {
     // Create no release folder.
 });
 
-task('deploy:shared', function () {
+task('deploy:shared', static function () {
     // Shared are not necessary without releases
 });
 
-task('deploy:symlink', function () {
+task('deploy:symlink', static function () {
     // Symlink is not necessary without releases
 });
 
-task('cleanup', function () {
+task('cleanup', static function () {
     // Cleanup is not necessary without releases
 });
 
-task('rollback', function () {
+task('rollback', static function () {
     // Cleanup is not possible without releases
 });
