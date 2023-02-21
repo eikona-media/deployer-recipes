@@ -73,7 +73,7 @@ task(
             $prefix = implode('.', \array_slice($filePieces, 0, -1));
             $extension = end($filePieces);
             if (empty($fileSource)) {
-                $fileSource = $prefix.'_{{stage}}.'.$extension;
+                $fileSource = $prefix.'_'.get('labels', [])['stage'] ?? ''.$extension;
             }
             if (null === $fileDelete) {
                 $fileDelete = $prefix.'_*';
