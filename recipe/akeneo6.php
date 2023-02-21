@@ -6,8 +6,8 @@ namespace Deployer;
 $composerHome = getenv('COMPOSER_HOME') ?: getenv('HOME') . '/.composer';
 include $composerHome . '/vendor/autoload.php';
 
-require_once 'recipe/symfony4.php';
-require_once 'recipe/yarn.php';
+require_once 'recipe/symfony.php';
+require_once 'contrib/yarn.php';
 require_once 'recipe/deploy/gitlab_ci.php';
 require_once 'recipe/deploy/supervisor.php';
 require_once 'recipe/deploy/stage_specific_files.php';
