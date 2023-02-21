@@ -64,7 +64,7 @@ task(
             }
 
             runLocally(
-                '{{local/bin/scp}} -rv '.implode(' ', $options)." $source $host:$destination",
+                '{{local/bin/scp}} -rv '.implode(' ', $options)." $source {$host->connectionString()}:$destination",
                 $config
             );
         }
