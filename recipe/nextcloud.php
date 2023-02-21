@@ -61,6 +61,7 @@ add(
 /*
  * Main task
  */
+desc('Deploy your project');
 task('deploy', [
     'deploy:info',
     'deploy:prepare',
@@ -74,7 +75,7 @@ task('deploy', [
     'deploy:symlink',
     'deploy:unlock',
     'cleanup',
-])->desc('Deploy your project');
+]);
 
 // Display success message on completion
 after('deploy', 'deploy:success');

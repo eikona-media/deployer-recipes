@@ -125,12 +125,13 @@ task(
 );
 
 // Run Contao migrations and database update
+desc('Run Contao migrations ');
 task(
     'contao:migrate',
     function () {
         run('{{bin/php}} {{bin/console}} contao:migrate {{console_options}}');
     }
-)->desc('Run Contao migrations ');
+);
 
 // optionally add to deploy.php:
 //add('shared_dirs', ['var/backups']);
@@ -170,12 +171,13 @@ add(
 /*
  * Contao build
  */
+desc('Build your project');
 task(
     'build',
     [
         'build:composer',
     ]
-)->desc('Build your project');
+);
 
 // optionally add to deploy.php:
 //after('deploy:symlink', 'deploy:cache_status_clear');

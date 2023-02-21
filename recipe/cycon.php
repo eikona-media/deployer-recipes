@@ -29,6 +29,7 @@ set(
 /*
  * Deploy task
  */
+desc('Deploy your project');
 task(
     'deploy',
     [
@@ -45,7 +46,7 @@ task(
         'deploy:unlock',
         'cleanup',
     ]
-)->desc('Deploy your project');
+);
 
 // Display success message on completion
 after('deploy', 'deploy:success');
@@ -53,6 +54,7 @@ after('deploy', 'deploy:success');
 /*
  * Cycon build
  */
+desc('Build your project');
 task('build', [
     'build:composer',
-])->desc('Build your project');
+]);
