@@ -1,11 +1,11 @@
-# Akeneo recipe
+# Akeneo 6 recipe
 
 ## Installing
 
 Include recipe in `deploy.php` file.
 
 ```php
-require 'recipe/akeneo5.php';
+require 'recipe/akeneo6.php';
 ```
 
 The recipe extends the symfony recipe of core deployer, so you have to include this recipe in `deploy.php` too:
@@ -17,12 +17,12 @@ require 'recipe/symfony.php';
 The recipe extends the yarn recipe of core deployer recipes, so you have to include this recipe in `deploy.php` too:
 
 ```php
-require 'recipe/yarn.php';
+require 'contrib/yarn.php';
 ```
 
 Add the nodejs path of the deploy server:
 ```php
-set('deploy_nodejs_path', '/opt/plesk/node/12/bin/');
+set('deploy_nodejs_path', '/opt/plesk/node/16/bin/');
 ```
 
 ### Optional Usage
@@ -36,14 +36,18 @@ set('deploy_nodejs_path', '/opt/plesk/node/12/bin/');
 * Update parameters from repo - see: [update_shared](deploy/update_shared.md)
 
     ```php
-    after('deploy:shared', 'deploy:update_shared_parameters');
+    before('deploy:shared', 'deploy:stage_specific_files');
     ```
 
     Example for `.env` files (`.env.ci_{{stage}}`)
     ```php
-    set('update_shared_parameters_target', '.env');
-    set('update_shared_parameters_source', '.env.ci_{{stage}}');
-    set('update_shared_parameters_delete', '.env.*');
+    set('stage_specific_files', [
+      [
+        'source' => '.env.ci_{{stage}}',
+        'target' => '.env',
+        'delete' => '.env.*'
+      ]
+    ]);
     ```
 
 * For Gitlab-CI see: [gitlab_ci](deploy/gitlab_ci.md)

@@ -1,18 +1,24 @@
 <?php
 declare(strict_types=1);
 
+/*
+ * This file is part of EIKONA Media deployer recipe.
+ *
+ * (c) eikona-media.de
+ *
+ * @license MIT
+ */
+
 namespace Deployer;
 
-$composerHome = getenv('COMPOSER_HOME') ?: getenv('HOME') . '/.composer';
-include $composerHome . '/vendor/autoload.php';
+require_once __DIR__.'/deploy/supervisor.php';
+require_once __DIR__.'/deploy/stage_specific_files.php';
+require_once __DIR__.'/build/composer.php';
+require_once __DIR__.'/build/yarn.php';
 
-require_once 'recipe/symfony.php';
-require_once 'contrib/yarn.php';
-require_once 'recipe/deploy/gitlab_ci.php';
-require_once 'recipe/deploy/supervisor.php';
-require_once 'recipe/deploy/stage_specific_files.php';
-require_once 'recipe/build/composer.php';
-require_once 'recipe/build/yarn.php';
+/*
+ * Akeneo Configuration
+ */
 
 // Akeneo shared files and dirs
 set('shared_files', []);
@@ -39,6 +45,67 @@ set('writable_dirs', [
     'public/media',
 ]);
 
+set(
+    'composer_options',
+    '{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-suggest --ignore-platform-reqs'
+);
+
+set('stage_specific_files', [
+    [
+        'source' => '.env.ci_{{stage}}',
+        'target' => '.env',
+        'delete' => '.env.*'
+    ]
+]);
+// optionally add to deploy.php:
+//before('deploy:shared', 'deploy:stage_specific_files');
+
+set('build_composer_options_extra', '--ignore-platform-reqs');
+set('deploy_nodejs_path', '/opt/plesk/node/16/bin/');
+
+/*
+ * Akeneo install assets
+ */
+desc('Execute pim:installer:assets');
+task('pim:installer:assets', function () {
+    run('{{bin/php}} {{bin/console}} pim:installer:assets --symlink --clean {{console_options}}');
+});
+
+/*
+ * Akeneo dump required paths
+ */
+desc('Execute pim:installer:dump-require-paths');
+task('pim:installer:dump-require-paths', function () {
+    run('{{bin/php}} {{bin/console}} pim:installer:dump-require-paths');
+});
+
+/*
+ * Yarn install (deploy)
+ */
+desc('Execute deploy:yarn_install');
+task('deploy:yarn_install', function () {
+    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} install');
+});
+
+/*
+ * Akeneo webpack & less compile (deploy)
+ */
+desc('Execute deploy:yarn_compile');
+task('deploy:yarn_compile', function () {
+    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} packages:build');
+    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} run webpack');
+    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} run less');
+    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} run update-extensions');
+});
+
+/*
+ * Akeneo build
+ */
+desc('Build your project');
+task('build', [
+    'build:composer',
+    'build:yarn',
+]);
 
 // Symfony exclude paths for upload
 add(
@@ -59,64 +126,7 @@ add(
     ]
 );
 
-/*
- * Deploy Configuration
- */
-set('default_timeout', 900);
-set('keep_releases', 2);
-
-set(
-    'composer_options',
-    '{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-suggest --ignore-platform-reqs'
-);
-
-set('stage_specific_files', [
-    [
-        'source' => '.env.ci_{{stage}}',
-        'target' => '.env',
-        'delete' => '.env.*'
-    ]
-]);
-before('deploy:shared', 'deploy:stage_specific_files');
-
-/*
- * Build Configuration
- */
-set('build_composer_options_extra', '--ignore-platform-reqs');
-set('deploy_nodejs_path', '/opt/plesk/node/16/bin/');
-
-/*
-* Tasks
-*/
-desc('Execute pim:installer:assets');
-task('pim:installer:assets', function () {
-    run('{{bin/php}} {{bin/console}} pim:installer:assets --symlink --clean {{console_options}}');
-});
-
-desc('Execute pim:installer:dump-require-paths');
-task('pim:installer:dump-require-paths', function () {
-    run('{{bin/php}} {{bin/console}} pim:installer:dump-require-paths');
-});
-
-desc('Execute deploy:yarn_install');
-task('deploy:yarn_install', function () {
-    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} install');
-});
-
-desc('Execute deploy:yarn_compile');
-task('deploy:yarn_compile', function () {
-    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} packages:build');
-    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} run webpack');
-    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} run less');
-    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} run update-extensions');
-});
-
-desc('Build your project');
-task('build', [
-    'build:composer',
-    'build:yarn',
-]);
-
+// Tasks
 after('deploy:vendors', 'pim:installer:assets');
 after('pim:installer:assets', 'pim:installer:dump-require-paths');
 after('pim:installer:dump-require-paths', 'deploy:yarn_install');

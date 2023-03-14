@@ -16,12 +16,12 @@ require 'recipe/contao.php';
 
 ## Recipes
 
-| Recipe     | Docs                        |
-| ---------- |:---------------------------:|
-| akeneo 5.* | [read](docs/akeneo5.md)     |
-| contao     | [read](docs/contao.md)      |
-| cycon      | [read](docs/cycon.md)       |
-| shopware6  | [read](docs/shopware6.md)     |
+| Recipe     |           Docs            |
+|------------|:-------------------------:|
+| akeneo 6.* |  [read](docs/akeneo6.md)  |
+| contao     |  [read](docs/contao.md)   |
+| cycon      |   [read](docs/cycon.md)   |
+| shopware6  | [read](docs/shopware6.md) |
 
 ## Build Helper
 
