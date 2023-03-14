@@ -23,7 +23,6 @@ require 'recipe/contao.php';
 | akeneo 5.* | [read](docs/akeneo5.md)     |
 | contao     | [read](docs/contao.md)      |
 | cycon      | [read](docs/cycon.md)       |
-| roundcube  | [read](docs/roundcube.md)   |
 | shopware6  | [read](docs/shopware6.md)     |
 
 ## Build Helper
