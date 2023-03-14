@@ -19,25 +19,6 @@ task(
     }
 )->hidden();
 
-desc('Clear accelerator cache');
-task(
-    'deploy:cache_accelerator_clear',
-    function () {
-        try {
-            run('cd {{release_path}} && {{bin/composer}} show smart-core/accelerator-cache-bundle');
-        } catch (\RuntimeException) {
-            writeln("\r\033[1A\033[40C … skipped");
-
-            /* @noinspection PhpUndefinedMethodInspection */
-            output()->setWasWritten(false);
-
-            return;
-        }
-
-        run('{{bin/php}} {{bin/console}} cache:accelerator:clear {{console_options}}');
-    }
-)->hidden();
-
 set('public_url', '');
 set('opcache_webroot', 'web');
 set('opcache_filename', 'opcache.php');

@@ -126,7 +126,9 @@ task(
 
 // optionally add to deploy.php:
 //after('deploy:symlink', 'deploy:cache_status_clear');
-//after('deploy:symlink', 'deploy:cache_accelerator_clear');
+//set('opcache_webroot', 'web');
+//set('public_url', 'https://yourcontao.com');
+//after('deploy:symlink', 'deploy:opcache_reset');
 
 // optionally add to deploy.php:
 //before('deploy:clear_shared_dirs', 'maintenance:enable:previous_release');

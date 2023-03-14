@@ -51,8 +51,6 @@ require 'recipe/symfony.php';
 
     ```php
     after('deploy:symlink', 'deploy:cache_status_clear');
-    after('deploy:symlink', 'deploy:cache_accelerator_clear');
-    // or
     after('deploy:symlink', 'deploy:opcache_reset'); // don't forget to set `public_url` per stage
     ```
 

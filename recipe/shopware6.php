@@ -230,7 +230,6 @@ after('deploy:cache:warmup', 'shopware:cache:warmup');
 // optionally add to deploy.php:
 // Cache clear
 //after('deploy:symlink', 'deploy:cache_status_clear');
-//after('deploy:symlink', 'deploy:cache_accelerator_clear');
 set('opcache_webroot', 'public');
 //set('public_url', 'https://yourshop.com');
-//or after('deploy:symlink', 'deploy:opcache_reset');
+//after('deploy:symlink', 'deploy:opcache_reset');
