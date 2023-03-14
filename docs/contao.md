@@ -38,10 +38,19 @@ require 'recipe/symfony.php';
     Default dirs: ``['files', 'templates']``
 
     ```php
-    after('deploy:shared', 'deploy:update_shared_parameters');
+    before('deploy:shared', 'deploy:stage_specific_files');
     ```
 
-    Default file:  ``app/config/parameters.yml``
+    Example for `.env` files (`.env.ci_{{stage}}`)
+    ```php
+    set('stage_specific_files', [
+      [
+        'source' => '.env.ci_{{stage}}',
+        'target' => '.env',
+        'delete' => '.env.*'
+      ]
+    ]);
+    ```
 
     ```php
     before('deploy:update_shared_dirs', 'deploy:clear_shared_dirs');

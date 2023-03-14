@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Deployer;
 
 require_once __DIR__ . '/deploy/cache.php';
+require_once __DIR__ . '/deploy/stage_specific_files.php';
 require_once __DIR__ . '/deploy/update_shared.php';
 require_once __DIR__ . '/build/composer.php';
 
@@ -54,16 +55,25 @@ set(
 );
 
 /*
- * Shopware update shared dirs + parameters from repo
+ * Shopware update shared dirs from repo
  */
 set('update_shared_dirs', ['custom/plugins', 'files']);
-set('update_shared_parameters_target', '.env');
-set('update_shared_parameters_source', '.env.ci_{{stage}}');
-set('update_shared_parameters_delete', '.env.*');
 
 // optionally add to deploy.php:
 //before('deploy:shared', 'deploy:update_shared_dirs');
-//after('deploy:shared', 'deploy:update_shared_parameters');
+
+/*
+ * Shopware stage specific files
+ */
+set('stage_specific_files', [
+    [
+        'source' => '.env.ci_{{stage}}',
+        'target' => '.env',
+        'delete' => '.env.*'
+    ]
+]);
+// optionally add to deploy.php:
+//before('deploy:shared', 'deploy:stage_specific_files');
 
 /*
  * Shopware build

@@ -16,6 +16,7 @@ use Deployer\Exception\RunException;
 require_once __DIR__.'/deploy/cache.php';
 require_once __DIR__.'/deploy/cleanup.php';
 require_once __DIR__.'/deploy/maintenance.php';
+require_once __DIR__.'/deploy/stage_specific_files.php';
 require_once __DIR__.'/deploy/update_shared.php';
 require_once __DIR__.'/build/composer.php';
 
@@ -34,18 +35,29 @@ set('writable_dirs', []);
 set('bin/console', '{{release_path}}/vendor/bin/contao-console');
 
 /*
- * Contao update shared dirs + parameters from repo
+ * Contao update shared dirs from repo
  */
 set('update_shared_dirs', ['files', 'templates']);
-set('update_shared_parameters_target', 'app/config/parameters.yml');
 
 // optionally add to deploy.php:
 //before('deploy:shared', 'deploy:update_shared_dirs');
-//after('deploy:shared', 'deploy:update_shared_parameters');
 
 // optionally add to deploy.php:
 //set('clear_shared_dirs', []);
 //before('deploy:update_shared_dirs', 'deploy:clear_shared_dirs');
+
+/*
+ * Contao stage specific files
+ */
+set('stage_specific_files', [
+    [
+        'source' => '.env.ci_{{stage}}',
+        'target' => '.env',
+        'delete' => '.env.*'
+    ]
+]);
+// optionally add to deploy.php:
+//before('deploy:shared', 'deploy:stage_specific_files');
 
 /*
  * Contao version integrity check
