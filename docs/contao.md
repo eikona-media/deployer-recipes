@@ -21,26 +21,12 @@ require 'recipe/symfony.php';
     set('contao_webroot', 'public');
     ```
 
-* Database Backup while deployment
-
-    This config is useful for Contao < 4.13 without backup while database migration
-    ```php
-    add('shared_dirs', ['var/backups']);
-    // or before Contao 4.13
-    add('shared_dirs', ['var/db_backups']);
-    before('deploy:symlink', 'contao:database:backup');
-    ```
-
 * Database migration while deployment
 
     with automatic backup manager of Contao 4.13:
     ```php
     add('shared_dirs', ['var/backups']);
     before('deploy:symlink', 'contao:migrate');
-    ```
-    or with activated database backup before Contao 4.13:
-    ```php
-    after('contao:database:backup', 'contao:migrate');
     ```
 
 * Update shared dirs + parameters from repo - see: [update_shared](deploy/update_shared.md)
@@ -95,9 +81,5 @@ require 'recipe/symfony.php';
 ## Tasks
 
 * ``contao:version`` - integrity check called before ``deploy:symlink``
-
-* ``contao:database:backup`` - backup database while deployment
-
-    Requires non contao-core package [``bwein-net/contao-database-backup``](https://github.com/bwein-net/contao-database-backup) to be installed!
 
 * ``contao:migrate`` - execute contao migration while deployment
