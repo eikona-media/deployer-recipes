@@ -25,8 +25,10 @@ require 'recipe/symfony.php';
   Default dirs: ``['custom/plugins', 'files']``
 
     ```php
+    set('shared_files', []);
     before('deploy:shared', 'deploy:stage_specific_files');
     ```
+    **Attention:** The shared files may have to be reset!
 
     Example for `.env` files (`.env.ci_{{stage}}`)
     ```php
