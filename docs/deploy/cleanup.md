@@ -11,7 +11,7 @@ require 'recipe/deploy/cleanup.php';
 ### Usage
 
 ```php
-  before('cleanup', 'cleanup:previous_release');
+  before('deploy:cleanup', 'cleanup:previous_release');
 ```
 
 ## Tasks & Configuration
