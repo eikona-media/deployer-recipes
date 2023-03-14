@@ -31,7 +31,6 @@ require 'recipe/deploy/update_shared.php';
 
 * `deploy:update_shared_parameters` - updates shared parameters for stage with config:
 
-   * `update_shared_parameters` (deprecated - replaced by `update_shared_parameters_target`)
    * `update_shared_parameters_target` file path as string - default: `''`
    * `update_shared_parameters_source` (optional) can preset `$fileSource` instead of generate from target
    * `update_shared_parameters_delete` (optional) can preset `$fileDelete` instead of generate from target
