@@ -46,6 +46,6 @@ require 'recipe/contao_project.php';
 
 ## More Doc + Recipes...
 
-* https://deployer.org/docs
+* https://deployer.org/docs/7.x/getting-started
 
-* https://github.com/deployphp/recipes/
+* https://deployer.org/docs/7.x/recipe
