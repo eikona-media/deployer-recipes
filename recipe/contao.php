@@ -91,39 +91,6 @@ task(
 //add('shared_dirs', ['var/db_backups']);
 //before('deploy:symlink', 'contao:database:backup');
 
-/*
- * Update database
- * Requires non contao-core package `fuzzyma/contao-database-commands-bundle` to be installed
- */
-desc('Update contao database');
-task(
-    'contao:database:update',
-    function () {
-        // First try native update command (Contao >= 4.9)
-        try {
-            if (version_compare(run('{{bin/php}} {{bin/console}} contao:version'), '4.9.0', '>=')) {
-                run('{{bin/php}} {{bin/console}} contao:migrate --schema-only {{console_options}}');
-
-                writeln('<comment>Please use the new contao:migrate task in your deploy.php!</comment>');
-
-                return;
-            }
-        } catch (RunException) {
-        }
-
-        // Then try command provided by contao-database-commands-bundle
-        try {
-            run('cd {{release_path}} && {{bin/composer}} show fuzzyma/contao-database-commands-bundle');
-        } catch (RunException) {
-            writeln('<comment>To update database setup "fuzzyma/contao-database-commands-bundle"</comment>');
-
-            return;
-        }
-
-        run('{{bin/php}} {{bin/console}} contao:database:update {{console_options}}');
-    }
-);
-
 // Run Contao migrations and database update
 desc('Run Contao migrations ');
 task(
