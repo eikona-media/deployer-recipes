@@ -51,6 +51,7 @@ add(
         './.lando',
         './.project.conf',
         './deploy.yml',
+        './deploy.yaml',
         './ecs.php',
         './ecs_template.php',
         './tools/ecs/*',
