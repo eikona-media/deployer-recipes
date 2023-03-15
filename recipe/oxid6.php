@@ -14,10 +14,7 @@ namespace Deployer;
 require_once __DIR__ . '/common.php';
 require_once __DIR__ . '/deploy/cache.php';
 require_once __DIR__ . '/deploy/cleanup.php';
-require_once __DIR__ . '/deploy/stage_specific_files.php';
 require_once __DIR__ . '/deploy/update_shared.php';
-require_once __DIR__ . '/deploy/update_shared.php';
-require_once __DIR__ . '/deploy/gitlab_ci.php';
 require_once __DIR__ . '/build/composer.php';
 
 set('oxid_shop_ids', [1]);
@@ -57,23 +54,7 @@ set('update_shared_dirs', [
     'source/out'
 ]);
 
-/*
- * Shopware stage specific files
- */
-set('stage_specific_files', [
-    [
-        'source' => 'source/.config.inc.ci_{{stage}}.php',
-        'target' => 'source/.config.inc.php',
-        'delete' => 'source/.config.inc*'
-    ]
-]);
-
-before('deploy:shared', 'deploy:update_shared_dirs');
-after('deploy:shared', 'deploy:update_shared_parameters');
-
-
-// optionally add to deploy.php:
-//before('deploy:shared', 'deploy:stage_specific_files');
+set('update_shared_parameters', 'source/config.inc.php');
 
 /*
  * Oxid build
