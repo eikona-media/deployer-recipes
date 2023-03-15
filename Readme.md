@@ -25,7 +25,8 @@ require 'recipe/contao.php';
 | cycon      | [read](docs/cycon.md)       |
 | nextcloud  | [read](docs/nextcloud.md)   |
 | roundcube  | [read](docs/roundcube.md)   |
-| shopware6  | [read](docs/shopware6.md)     |
+| shopware6  | [read](docs/shopware6.md)   |
+| oxid6      | [read](docs/oxid6.md)       |
 
 ## Build Helper
 
