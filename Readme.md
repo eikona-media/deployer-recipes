@@ -22,6 +22,7 @@ require 'recipe/contao_project.php';
 | contao project | [read](docs/contao_project.md) |
 | cycon          |     [read](docs/cycon.md)      |
 | shopware6      |   [read](docs/shopware6.md)    |
+| oxid6          |     [read](docs/oxid6.md)      |
 
 ## Build Helper
 
