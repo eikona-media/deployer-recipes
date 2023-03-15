@@ -11,7 +11,7 @@ composer require eikona-media/deployer-recipes --dev
 Include recipes in `deploy.php` file.
 
 ```php
-require 'recipe/contao.php';
+require 'recipe/contao_project.php';
 ```
 
 ## Recipes
@@ -30,29 +30,27 @@ require 'recipe/contao.php';
 
 ## Build Helper
 
-| Recipe         | Docs                                 |
-|----------------|:------------------------------------:|
-| composer       | [read](docs/build/composer.md)       |
-| npm            | [read](docs/build/npm.md)            |
-| yarn           | [read](docs/build/yarn.md)           |
+| Recipe   |              Docs              |
+|----------|:------------------------------:|
+| composer | [read](docs/build/composer.md) |
+| npm      |   [read](docs/build/npm.md)    |
+| yarn     |   [read](docs/build/yarn.md)   |
 
 ## Deploy Helper
 
-| Recipe         | Docs                                 |
-|----------------|:------------------------------------:|
-| cache          | [read](docs/deploy/cache.md)         |
-| cleanup        | [read](docs/deploy/cleanup.md)       |
-| gitlab_ci      | [read](docs/deploy/gitlab_ci.md)     |
-| maintenance    | [read](docs/deploy/maintenance.md)   |
-| no_releases    | [read](docs/deploy/no_releases.md)   |
-| scp            | [read](docs/deploy/scp.md)           |
-| supervisor     | [read](docs/deploy/supervisor.md)    |
-| tar            | [read](docs/deploy/tar.md)           |
-| update_shared  | [read](docs/deploy/update_shared.md) |
-
+| Recipe        |                 Docs                 |
+|---------------|:------------------------------------:|
+| cache         |     [read](docs/deploy/cache.md)     |
+| cleanup       |    [read](docs/deploy/cleanup.md)    |
+| gitlab_ci     |   [read](docs/deploy/gitlab_ci.md)   |
+| no_releases   |  [read](docs/deploy/no_releases.md)  |
+| scp           |      [read](docs/deploy/scp.md)      |
+| supervisor    |  [read](docs/deploy/supervisor.md)   |
+| tar           |      [read](docs/deploy/tar.md)      |
+| update_shared | [read](docs/deploy/update_shared.md) |
 
 ## More Doc + Recipes...
 
-* https://deployer.org/docs
+* https://deployer.org/docs/7.x/getting-started
 
-* https://github.com/deployphp/recipes/
+* https://deployer.org/docs/7.x/recipe

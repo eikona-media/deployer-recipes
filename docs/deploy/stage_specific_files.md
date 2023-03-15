@@ -22,7 +22,7 @@ require 'recipe/deploy/stage_specific_files.php';
     * `stage_specific_files` array - default `[]` (can include multiple configurations)
         * `target` file path as string
         * `source` file path as string
-        * `delete` (optional) file path as string
+        * `delete` (optional) file path as string or an array of strings
 
    Copies the `source` file to `target` file. Then deletes files configured in `delete`.
 
@@ -33,8 +33,8 @@ require 'recipe/deploy/stage_specific_files.php';
   > set('stage_specific_files', [
   >     [
   >          'source' => '.env.ci_{{stage}}',
-  >          'target' => '.env',
-  >          'delete' => '.env.*'
+  >          'target' => '.env.local',
+  >          'delete' => ['.env.ci_*', '.env_lando']
   >     ]
   > ]);
   > ```
@@ -56,7 +56,7 @@ require 'recipe/deploy/stage_specific_files.php';
   >     [
   >          'source' => '.env.ci_{{stage}}',
   >          'target' => '.env',
-  >          'delete' => '.env.*'
+  >          'delete' => ['.env.ci_*', '.env_lando']
   >     ],
   >     [
   >         'source' => 'config/parameters_{{stage}}.yml',

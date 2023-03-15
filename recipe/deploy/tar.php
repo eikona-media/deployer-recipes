@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of EIKONA Media deployer recipe.
@@ -23,7 +24,7 @@ set(
 set(
     'tar_bin_host',
     function () {
-        return locateBinaryPath('tar');
+        return which('tar');
     }
 );
 
@@ -50,6 +51,10 @@ add(
         './.lando',
         './.project.conf',
         './deploy.yml',
+        './deploy.yaml',
+        './ecs.php',
+        './ecs_template.php',
+        './tools/ecs/*',
     ]
 );
 
@@ -65,22 +70,23 @@ task('tar:create', function () {
     foreach ($excludes as &$exclude) {
         $exclude = '--exclude="'.$exclude.'"';
     }
+    unset($exclude);
 
     $excludes = implode(' ', $excludes);
     $source = parse(get('tar_source'));
 
     runLocally("{{local/bin/tar}} {{tar_create_options}} {{tar_file_local}} $excludes $source");
-})->setPrivate();
+})->hidden();
 
 desc('Extracting tar file on host');
 task('tar:extract', function () {
     $destination = parse(get('tar_destination'));
     run("{{tar_bin_host}} {{tar_extract_options}} {{tar_file_host}} -C $destination");
-})->setPrivate();
+})->hidden();
 
 desc('Removing tar files');
 task('tar:cleanup', function () {
     $sudo = get('clear_use_sudo') ? 'sudo' : '';
     run("$sudo rm -rf {{tar_file_host}}");
     runLocally("$sudo rm -rf {{tar_file_local}}");
-})->setPrivate();
+})->hidden();

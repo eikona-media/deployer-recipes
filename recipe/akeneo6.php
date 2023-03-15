@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of EIKONA Media deployer recipe.
@@ -10,7 +11,8 @@
 
 namespace Deployer;
 
-require_once __DIR__.'/deploy/update_shared.php';
+require_once __DIR__.'/deploy/supervisor.php';
+require_once __DIR__.'/deploy/stage_specific_files.php';
 require_once __DIR__.'/build/composer.php';
 require_once __DIR__.'/build/yarn.php';
 
@@ -19,12 +21,11 @@ require_once __DIR__.'/build/yarn.php';
  */
 
 // Akeneo shared files and dirs
-set('shared_files', ['.env']);
+set('shared_files', []);
 set('shared_dirs', [
     'app/archive',
     'app/file_storage',
     'app/uploads',
-    'var/file_storage',
     'var/logs',
     'var/sessions',
     'var/backups',
@@ -38,12 +39,29 @@ set('writable_dirs', [
     'app/uploads',
     'bin/backup',
     'var/cache',
-    'var/file_storage',
     'var/logs',
     'var/sessions',
     'var/file_storage',
     'public/media',
 ]);
+
+set(
+    'composer_options',
+    '{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-suggest --ignore-platform-reqs'
+);
+
+set('stage_specific_files', [
+    [
+        'source' => '.env.ci_{{stage}}',
+        'target' => '.env',
+        'delete' => '.env.*'
+    ]
+]);
+// optionally add to deploy.php:
+//before('deploy:shared', 'deploy:stage_specific_files');
+
+set('build_composer_options_extra', '--ignore-platform-reqs');
+set('deploy_nodejs_path', '/opt/plesk/node/16/bin/');
 
 /*
  * Akeneo install assets
@@ -51,7 +69,7 @@ set('writable_dirs', [
 desc('Execute pim:installer:assets');
 task('pim:installer:assets', function () {
     run('{{bin/php}} {{bin/console}} pim:installer:assets --symlink --clean {{console_options}}');
-});
+})->hidden();
 
 /*
  * Akeneo dump required paths
@@ -59,38 +77,26 @@ task('pim:installer:assets', function () {
 desc('Execute pim:installer:dump-require-paths');
 task('pim:installer:dump-require-paths', function () {
     run('{{bin/php}} {{bin/console}} pim:installer:dump-require-paths');
-});
+})->hidden();
 
 /*
  * Yarn install (deploy)
  */
 desc('Execute deploy:yarn_install');
 task('deploy:yarn_install', function () {
-    // Run with custom Node.js Path for Node.js 10
     run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} install');
-});
+})->hidden();
 
 /*
- * Akeneo webpack compile (deploy)
+ * Akeneo webpack & less compile (deploy)
  */
 desc('Execute deploy:yarn_compile');
 task('deploy:yarn_compile', function () {
-    // Run with custom Node.js Path for Node.js 10
+    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} packages:build');
     run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} run webpack');
-});
-
-/*
- * Doctrine schema update
- */
-desc('Execute doctrine:schema:update:dump-sql');
-task('doctrine:schema:update:dump-sql', function () {
-    run('{{bin/php}} {{bin/console}} doctrine:schema:update --dump-sql {{console_options}}');
-});
-
-desc('Execute doctrine:schema:update:force');
-task('doctrine:schema:update:force', function () {
-    run('{{bin/php}} {{bin/console}} doctrine:schema:update --force {{console_options}}');
-});
+    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} run less');
+    run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} run update-extensions');
+})->hidden();
 
 /*
  * Akeneo build

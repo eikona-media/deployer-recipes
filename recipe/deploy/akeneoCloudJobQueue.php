@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of EIKONA Media deployer recipe.
@@ -16,7 +17,7 @@ task('deploy:restart_akeneo_cloud_job_queue', function () {
     if ($param==='restart'){
         run('partners_systemctl pim_job_queue@* restart');
     }
-});
+})->hidden();
 
 // always restart daemons after the symlink was changed
 after('deploy:symlink', 'deploy:restart_akeneo_cloud_job_queue');

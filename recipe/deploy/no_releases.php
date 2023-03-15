@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of EIKONA Media deployer recipe.
@@ -23,28 +24,28 @@ task('deploy:prepare', function () {
 
     // Create metadata .dep dir.
     run('cd {{deploy_path}} && if [ ! -d .dep ]; then mkdir .dep; fi');
-});
+})->hidden();
 
 set('release_path', function () {
     return get('deploy_path');
 });
 
-task('deploy:release', function () {
+task('deploy:release', static function () {
     // Create no release folder.
-});
+})->hidden();
 
-task('deploy:shared', function () {
+task('deploy:shared', static function () {
     // Shared are not necessary without releases
-});
+})->hidden();
 
-task('deploy:symlink', function () {
+task('deploy:symlink', static function () {
     // Symlink is not necessary without releases
-});
+})->hidden();
 
-task('cleanup', function () {
+task('deploy:cleanup', static function () {
     // Cleanup is not necessary without releases
-});
+})->hidden();
 
-task('rollback', function () {
+task('rollback', static function () {
     // Cleanup is not possible without releases
 });

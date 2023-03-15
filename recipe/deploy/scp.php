@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of EIKONA Media deployer recipe.
@@ -11,8 +12,8 @@
 namespace Deployer;
 
 use Deployer\Host\Localhost;
-use Deployer\Ssh\Arguments;
 use Deployer\Task\Context;
+use function Deployer\Support\parse_home_dir;
 
 require_once __DIR__.'/tar.php';
 
@@ -43,34 +44,32 @@ task(
         if ($host instanceof Localhost) {
             runLocally('cp -rv '.implode(' ', $config['options'])." $source $destination", $config);
         } else {
-            $sshArguments = new Arguments();
-            if ($host->getPort()) {
-                $sshArguments = $sshArguments->withFlag('-P', $host->getPort());
-            }
-            if ($host->getConfigFile()) {
-                $sshArguments = $sshArguments->withFlag('-F', $host->getConfigFile());
-            }
-            if ($host->getIdentityFile()) {
-                $sshArguments = $sshArguments->withFlag('-i', $host->getIdentityFile());
-            }
-            if ($host->isForwardAgent()) {
-                $sshArguments = $sshArguments->withFlag('-o', '"ForwardAgent yes"');
-            }
-
-            if (false === empty($sshArguments)) {
-                if (!isset($config['options']) || !\is_array($config['options'])) {
-                    $config['options'] = [];
+            $options = [];
+            if ($host->has('ssh_arguments')) {
+                foreach ($host->getSshArguments() as $arg) {
+                    $options = array_merge($options, explode(' ', $arg));
                 }
-                $config['options'][] = $sshArguments;
+            }
+            if ($host->has('port')) {
+                $options = array_merge($options, ['-P', $host->getPort()]);
+            }
+            if ($host->has('config_file')) {
+                $options = array_merge($options, ['-F', parse_home_dir($host->getConfigFile())]);
+            }
+            if ($host->has('identity_file')) {
+                $options = array_merge($options, ['-i', parse_home_dir($host->getIdentityFile())]);
+            }
+            if ($host->has('forward_agent') && $host->getForwardAgent()) {
+                $options = array_merge($options, ['-A']);
             }
 
             runLocally(
-                '{{local/bin/scp}} -rv '.implode(' ', $config['options'])." $source $host:$destination",
+                '{{local/bin/scp}} -rv '.implode(' ', $options)." $source {$host->connectionString()}:$destination",
                 $config
             );
         }
     }
-)->setPrivate();
+)->hidden();
 
 desc('Copying files to host with tar');
 task(
@@ -85,4 +84,4 @@ task(
         invoke('tar:extract');
         invoke('tar:cleanup');
     }
-)->setPrivate();
+)->hidden();

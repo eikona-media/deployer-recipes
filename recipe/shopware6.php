@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of EIKONA Media deployer recipe.
@@ -11,6 +12,7 @@
 namespace Deployer;
 
 require_once __DIR__ . '/deploy/cache.php';
+require_once __DIR__ . '/deploy/stage_specific_files.php';
 require_once __DIR__ . '/deploy/update_shared.php';
 require_once __DIR__ . '/build/composer.php';
 
@@ -53,16 +55,25 @@ set(
 );
 
 /*
- * Shopware update shared dirs + parameters from repo
+ * Shopware update shared dirs from repo
  */
 set('update_shared_dirs', ['custom/plugins', 'files']);
-set('update_shared_parameters_target', '.env');
-set('update_shared_parameters_source', '.env.ci_{{stage}}');
-set('update_shared_parameters_delete', '.env.*');
 
 // optionally add to deploy.php:
 //before('deploy:shared', 'deploy:update_shared_dirs');
-//after('deploy:shared', 'deploy:update_shared_parameters');
+
+/*
+ * Shopware stage specific files
+ */
+set('stage_specific_files', [
+    [
+        'source' => '.env.ci_{{stage}}',
+        'target' => '.env',
+        'delete' => '.env.*'
+    ]
+]);
+// optionally add to deploy.php:
+//before('deploy:shared', 'deploy:stage_specific_files');
 
 /*
  * Shopware build
@@ -80,7 +91,7 @@ task(
             get('build_composer_run_options')
         );
     }
-);
+)->hidden();
 
 set('build_shopware_js_run_options', ['env' => ['CI' => true, 'SHOPWARE_SKIP_BUNDLE_DUMP' => true, 'SHOPWARE_SKIP_FEATURE_DUMP' => true, 'SHOPWARE_SKIP_ASSET_COPY' => true, 'SHOPWARE_SKIP_THEME_COMPILE' => true], 'timeout' => null]);
 desc('Build shopware Javascript');
@@ -89,7 +100,7 @@ task(
     static function () {
         runLocally('cd ./ && bash bin/build-js.sh', get('build_shopware_js_run_options'));
     }
-);
+)->hidden();
 
 desc('Build your project');
 task(
@@ -138,7 +149,7 @@ task(
     static function () {
         run('touch {{release_path}}/install.lock');
     }
-);
+)->hidden();
 before('deploy:vendors', 'shopware:install:lock');
 
 /*
@@ -150,7 +161,7 @@ task(
     function () {
         run('{{bin/php}} {{bin/console}} bundle:dump {{console_options}}');
     }
-);
+)->hidden();
 before('deploy:vendors', 'shopware:bundle:dump');
 
 /*
@@ -165,7 +176,7 @@ task(
             run('{{bin/php}} {{bin/console}} system:generate-jwt-secret -f {{console_options}}');
         }
     }
-);
+)->hidden();
 after('deploy:vendors', 'shopware:generate-jwt-secret');
 
 /*
@@ -177,7 +188,7 @@ task(
     function () {
         run('{{bin/php}} {{bin/console}} asset:install {{console_options}}');
     }
-);
+)->hidden();
 after('deploy:vendors','shopware:asset:install');
 
 /*
@@ -189,7 +200,7 @@ task(
     static function () {
         run('{{bin/php}} {{bin/console}} theme:compile {{console_options}}');
     }
-);
+)->hidden();
 before('deploy:cache:clear', 'shopware:compile:theme');
 
 /*
@@ -201,7 +212,7 @@ task(
     static function () {
         run('{{bin/php}} {{bin/console}} database:migrate --all {{console_options}}');
     }
-);
+)->hidden();
 //before('shopware:compile:theme', 'shopware:migrate');
 
 /*
@@ -213,13 +224,12 @@ task(
     static function () {
         run('{{bin/php}} {{bin/console}} http:cache:warm:up {{console_options}}');
     }
-);
+)->hidden();
 after('deploy:cache:warmup', 'shopware:cache:warmup');
 
 // optionally add to deploy.php:
 // Cache clear
 //after('deploy:symlink', 'deploy:cache_status_clear');
-//after('deploy:symlink', 'deploy:cache_accelerator_clear');
 set('opcache_webroot', 'public');
 //set('public_url', 'https://yourshop.com');
-//or after('deploy:symlink', 'deploy:opcache_reset');
+//after('deploy:symlink', 'deploy:opcache_reset');

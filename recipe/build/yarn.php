@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of EIKONA Media deployer recipe.
@@ -22,4 +23,4 @@ set('build_yarn_run_options', ['timeout' => null]);
 desc('Build yarn packages');
 task('build:yarn', function () {
     runLocally('cd {{build_yarn_path}} && {{local/bin/yarn}} {{build_yarn_options}}', get('build_yarn_run_options'));
-});
+})->hidden();

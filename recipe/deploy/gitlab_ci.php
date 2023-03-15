@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of EIKONA Media deployer recipe.
@@ -24,7 +25,7 @@ task(
         set('scp_upload_destination', '{{release_path}}/');
         invoke('scp:upload:tar');
     }
-);
+)->hidden();
 
 // always unlock, because otherwise retry with gitlab-ci won't work
 after('deploy:failed', 'deploy:unlock');

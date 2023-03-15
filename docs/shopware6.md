@@ -11,7 +11,7 @@ require 'recipe/shopware6.php';
 The recipe extends the symfony recipe of core deployer, so you have to include this recipe in `deploy.php` too:
 
 ```php
-require 'recipe/symfony4.php';
+require 'recipe/symfony.php';
 ```
 
 ### Optional Usage
@@ -25,10 +25,21 @@ require 'recipe/symfony4.php';
   Default dirs: ``['custom/plugins', 'files']``
 
     ```php
-    after('deploy:shared', 'deploy:update_shared_parameters');
+    set('shared_files', []);
+    before('deploy:shared', 'deploy:stage_specific_files');
     ```
+    **Attention:** The shared files may have to be reset!
 
-  Default file:  ``.env`` - for every Stage: `.env.ci_{{stage}}`
+    Example for `.env` files (`.env.ci_{{stage}}`)
+    ```php
+    set('stage_specific_files', [
+      [
+        'source' => '.env.ci_{{stage}}',
+        'target' => '.env',
+        'delete' => '.env.*'
+      ]
+    ]);
+    ```
 
     ```php
     before('deploy:update_shared_dirs', 'deploy:clear_shared_dirs');
@@ -40,8 +51,6 @@ require 'recipe/symfony4.php';
 
     ```php
     after('deploy:symlink', 'deploy:cache_status_clear');
-    after('deploy:symlink', 'deploy:cache_accelerator_clear');
-    // or
     after('deploy:symlink', 'deploy:opcache_reset'); // don't forget to set `public_url` per stage
     ```
 
