@@ -22,8 +22,8 @@ task(
             return;
         }
 
+        $stage = get('labels', [])['stage'] ?? '';
         foreach ($fileConfigs as $fileConfig) {
-            $stage = get('labels', [])['stage'] ?? '';
             $fileSource = str_replace('{{stage}}', $stage, $fileConfig['source']); // .env.ci_{{stage}}
             $fileTarget = $fileConfig['target']; // .env
             $fileDelete = $fileConfig['delete']; // .env.ci_*
