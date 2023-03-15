@@ -69,7 +69,7 @@ set('deploy_nodejs_path', '/opt/plesk/node/16/bin/');
 desc('Execute pim:installer:assets');
 task('pim:installer:assets', function () {
     run('{{bin/php}} {{bin/console}} pim:installer:assets --symlink --clean {{console_options}}');
-});
+})->hidden();
 
 /*
  * Akeneo dump required paths
@@ -77,7 +77,7 @@ task('pim:installer:assets', function () {
 desc('Execute pim:installer:dump-require-paths');
 task('pim:installer:dump-require-paths', function () {
     run('{{bin/php}} {{bin/console}} pim:installer:dump-require-paths');
-});
+})->hidden();
 
 /*
  * Yarn install (deploy)
@@ -85,7 +85,7 @@ task('pim:installer:dump-require-paths', function () {
 desc('Execute deploy:yarn_install');
 task('deploy:yarn_install', function () {
     run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} install');
-});
+})->hidden();
 
 /*
  * Akeneo webpack & less compile (deploy)
@@ -96,7 +96,7 @@ task('deploy:yarn_compile', function () {
     run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} run webpack');
     run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} run less');
     run('cd {{release_path}} && PATH="{{deploy_nodejs_path}}:$PATH" {{bin/yarn}} run update-extensions');
-});
+})->hidden();
 
 /*
  * Akeneo build

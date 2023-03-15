@@ -23,4 +23,4 @@ set('build_npm_run_options', ['timeout' => null]);
 desc('Build npm packages');
 task('build:npm', function () {
     runLocally('cd {{build_npm_path}} && {{local/bin/npm}} {{build_npm_options}}', get('build_npm_run_options'));
-});
+})->hidden();

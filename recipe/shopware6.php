@@ -91,7 +91,7 @@ task(
             get('build_composer_run_options')
         );
     }
-);
+)->hidden();
 
 set('build_shopware_js_run_options', ['env' => ['CI' => true, 'SHOPWARE_SKIP_BUNDLE_DUMP' => true, 'SHOPWARE_SKIP_FEATURE_DUMP' => true, 'SHOPWARE_SKIP_ASSET_COPY' => true, 'SHOPWARE_SKIP_THEME_COMPILE' => true], 'timeout' => null]);
 desc('Build shopware Javascript');
@@ -100,7 +100,7 @@ task(
     static function () {
         runLocally('cd ./ && bash bin/build-js.sh', get('build_shopware_js_run_options'));
     }
-);
+)->hidden();
 
 desc('Build your project');
 task(
@@ -149,7 +149,7 @@ task(
     static function () {
         run('touch {{release_path}}/install.lock');
     }
-);
+)->hidden();
 before('deploy:vendors', 'shopware:install:lock');
 
 /*
@@ -161,7 +161,7 @@ task(
     function () {
         run('{{bin/php}} {{bin/console}} bundle:dump {{console_options}}');
     }
-);
+)->hidden();
 before('deploy:vendors', 'shopware:bundle:dump');
 
 /*
@@ -176,7 +176,7 @@ task(
             run('{{bin/php}} {{bin/console}} system:generate-jwt-secret -f {{console_options}}');
         }
     }
-);
+)->hidden();
 after('deploy:vendors', 'shopware:generate-jwt-secret');
 
 /*
@@ -188,7 +188,7 @@ task(
     function () {
         run('{{bin/php}} {{bin/console}} asset:install {{console_options}}');
     }
-);
+)->hidden();
 after('deploy:vendors','shopware:asset:install');
 
 /*
@@ -200,7 +200,7 @@ task(
     static function () {
         run('{{bin/php}} {{bin/console}} theme:compile {{console_options}}');
     }
-);
+)->hidden();
 before('deploy:cache:clear', 'shopware:compile:theme');
 
 /*
@@ -212,7 +212,7 @@ task(
     static function () {
         run('{{bin/php}} {{bin/console}} database:migrate --all {{console_options}}');
     }
-);
+)->hidden();
 //before('shopware:compile:theme', 'shopware:migrate');
 
 /*
@@ -224,7 +224,7 @@ task(
     static function () {
         run('{{bin/php}} {{bin/console}} http:cache:warm:up {{console_options}}');
     }
-);
+)->hidden();
 after('deploy:cache:warmup', 'shopware:cache:warmup');
 
 // optionally add to deploy.php:

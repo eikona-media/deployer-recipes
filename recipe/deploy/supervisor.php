@@ -24,7 +24,7 @@ task('deploy:restart_supervisor_daemons', function () {
     foreach ($daemons as $daemon) {
         run('{{bin/supervisorctl}} restart '.$daemon);
     }
-});
+})->hidden();
 
 // always restart daemons after the symlink was changed
 after('deploy:symlink', 'deploy:restart_supervisor_daemons');
