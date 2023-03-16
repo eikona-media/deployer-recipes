@@ -55,6 +55,20 @@ set('update_shared_dirs', [
 
 set('update_shared_parameters', 'source/config.inc.php');
 
+task('deploy', [
+    'deploy:info',
+    'deploy:prepare',
+    'deploy:lock',
+    'deploy:release',
+    'deploy:update_code',
+    'deploy:clear_paths',
+    'deploy:shared',
+    'deploy:vendors',
+    'deploy:symlink',
+    'deploy:unlock',
+    'cleanup',
+])->desc('Deploy your project');
+
 /*
  * Oxid build
  */
