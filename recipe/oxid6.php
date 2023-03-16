@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Deployer;
 
-require_once __DIR__ . '/common.php';
 require_once __DIR__ . '/deploy/cache.php';
 require_once __DIR__ . '/deploy/cleanup.php';
 require_once __DIR__ . '/deploy/update_shared.php';
