@@ -159,7 +159,7 @@ desc('Dump bundle config');
 task(
     'shopware:bundle:dump',
     function () {
-        run('{{bin/php}} {{bin/console}} bundle:dump {{console_options}}');
+        run('{{bin/console}} bundle:dump {{console_options}}');
     }
 )->hidden();
 before('deploy:vendors', 'shopware:bundle:dump');
@@ -173,7 +173,7 @@ task(
     function () {
         if (!test('[ -f {{release_path}}/config/jwt/private.pem ]')
             || !test('[ -f {{release_path}}/config/jwt/public.pem ]')) {
-            run('{{bin/php}} {{bin/console}} system:generate-jwt-secret -f {{console_options}}');
+            run('{{bin/console}} system:generate-jwt-secret -f {{console_options}}');
         }
     }
 )->hidden();
@@ -186,7 +186,7 @@ desc('Install assets');
 task(
     'shopware:asset:install',
     function () {
-        run('{{bin/php}} {{bin/console}} asset:install {{console_options}}');
+        run('{{bin/console}} asset:install {{console_options}}');
     }
 )->hidden();
 after('deploy:vendors','shopware:asset:install');
@@ -198,7 +198,7 @@ desc('Compile shopware theme');
 task(
     'shopware:compile:theme',
     static function () {
-        run('{{bin/php}} {{bin/console}} theme:compile {{console_options}}');
+        run('{{bin/console}} theme:compile {{console_options}}');
     }
 )->hidden();
 before('deploy:cache:clear', 'shopware:compile:theme');
@@ -210,7 +210,7 @@ desc('Migrate shopware database');
 task(
     'shopware:migrate',
     static function () {
-        run('{{bin/php}} {{bin/console}} database:migrate --all {{console_options}}');
+        run('{{bin/console}} database:migrate --all {{console_options}}');
     }
 )->hidden();
 //before('shopware:compile:theme', 'shopware:migrate');
@@ -222,7 +222,7 @@ desc('Warmup shopware http cache');
 task(
     'shopware:cache:warmup',
     static function () {
-        run('{{bin/php}} {{bin/console}} http:cache:warm:up {{console_options}}');
+        run('{{bin/console}} http:cache:warm:up {{console_options}}');
     }
 )->hidden();
 after('deploy:cache:warmup', 'shopware:cache:warmup');

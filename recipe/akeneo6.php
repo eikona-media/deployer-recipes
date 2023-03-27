@@ -68,7 +68,7 @@ set('deploy_nodejs_path', '/opt/plesk/node/16/bin/');
  */
 desc('Execute pim:installer:assets');
 task('pim:installer:assets', function () {
-    run('{{bin/php}} {{bin/console}} pim:installer:assets --symlink --clean {{console_options}}');
+    run('{{bin/console}} pim:installer:assets --symlink --clean {{console_options}}');
 })->hidden();
 
 /*
@@ -76,7 +76,7 @@ task('pim:installer:assets', function () {
  */
 desc('Execute pim:installer:dump-require-paths');
 task('pim:installer:dump-require-paths', function () {
-    run('{{bin/php}} {{bin/console}} pim:installer:dump-require-paths');
+    run('{{bin/console}} pim:installer:dump-require-paths');
 })->hidden();
 
 /*
