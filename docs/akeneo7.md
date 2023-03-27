@@ -8,6 +8,18 @@ Include recipe in `deploy.php` file.
 require 'recipe/akeneo7.php';
 ```
 
+The recipe extends the symfony recipe of core deployer, so you have to include this recipe in `deploy.php` too:
+
+```php
+require 'recipe/symfony.php';
+```
+
+The recipe extends the yarn recipe of core deployer recipes, so you have to include this recipe in `deploy.php` too:
+
+```php
+require 'contrib/yarn.php';
+```
+
 Add the nodejs path of the deploy server:
 ```php
 set('deploy_nodejs_path', '/opt/plesk/node/18/bin/');

@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 namespace Deployer;
 
-require_once 'recipe/symfony.php';
-require_once 'contrib/yarn.php';
 require_once __DIR__.'/deploy/supervisor.php';
 require_once __DIR__.'/build/composer.php';
 require_once __DIR__.'/build/yarn.php';
