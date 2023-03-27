@@ -18,6 +18,7 @@ require 'recipe/contao_project.php';
 
 | Recipe         |              Docs              |
 |----------------|:------------------------------:|
+| akeneo 7.*     |    [read](docs/akeneo7.md)     |
 | akeneo 6.*     |    [read](docs/akeneo6.md)     |
 | contao project | [read](docs/contao_project.md) |
 | cycon          |     [read](docs/cycon.md)      |
