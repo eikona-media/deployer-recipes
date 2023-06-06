@@ -44,7 +44,7 @@ task(
         if ($host instanceof Localhost) {
             runLocally('cp -rv '.implode(' ', $config['options'])." $source $destination", $config);
         } else {
-            $options = [];
+            $options = $config['options'];
             if ($host->has('ssh_arguments')) {
                 foreach ($host->getSshArguments() as $arg) {
                     $options = array_merge($options, explode(' ', $arg));
