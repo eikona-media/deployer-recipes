@@ -17,8 +17,9 @@ task(
     function () {
         if (has('previous_release')) {
             $sudo = get('clear_use_sudo') ? 'sudo' : '';
+            $rmcmd = get('clear_use_rmdir') ? 'rmdir --ignore-fail-on-non-empty' : 'rm -rf';
             foreach (array_filter(get('cleanup_previous_release_dirs')) as $dir) {
-                run("$sudo rm -rf {{previous_release}}/$dir");
+                run("$sudo $rmcmd {{previous_release}}/$dir");
             }
         }
     }
