@@ -72,13 +72,13 @@ task(
     'shopware:build:recovery',
     static function () {
         runLocally(
-            'cd {{build_composer_path}} && {{local/bin/php}} {{local/bin/composer}} {{build_composer_options}} {{build_composer_options_extra}} --working-dir vendor/shopware/recovery',
+            'cd {{build_composer_path}} && {{local/bin/php}} {{local/bin/composer}} {{build_composer_options}} {{build_composer_options_extra}}',
             get('build_composer_run_options')
         );
-        runLocally(
-            'cd {{build_composer_path}} && {{local/bin/php}} {{local/bin/composer}} {{build_composer_options}} {{build_composer_options_extra}} --working-dir=vendor/shopware/recovery/Common',
-            get('build_composer_run_options')
-        );
+        // runLocally(
+        //     'cd {{build_composer_path}} && {{local/bin/php}} {{local/bin/composer}} {{build_composer_options}} {{build_composer_options_extra}} --working-dir=vendor/shopware/recovery/Common',
+        //     get('build_composer_run_options')
+        // );
     }
 );
 
