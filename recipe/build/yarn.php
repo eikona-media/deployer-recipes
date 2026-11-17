@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Deployer;
 
+require_once __DIR__.'/../functions.php';
+
 set('local/bin/yarn', function () {
     return runLocally('which yarn');
 });
@@ -22,5 +24,5 @@ set('build_yarn_run_options', ['timeout' => null]);
 
 desc('Build yarn packages');
 task('build:yarn', function () {
-    runLocally('cd {{build_yarn_path}} && {{local/bin/yarn}} {{build_yarn_options}}', get('build_yarn_run_options'));
+    eikonaRunLocally('cd {{build_yarn_path}} && {{local/bin/yarn}} {{build_yarn_options}}', get('build_yarn_run_options'));
 })->hidden();

@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Deployer;
 
+require_once __DIR__.'/../functions.php';
+
 set('local/bin/npm', function () {
     return runLocally('which npm');
 });
@@ -22,5 +24,5 @@ set('build_npm_run_options', ['timeout' => null]);
 
 desc('Build npm packages');
 task('build:npm', function () {
-    runLocally('cd {{build_npm_path}} && {{local/bin/npm}} {{build_npm_options}}', get('build_npm_run_options'));
+    eikonaRunLocally('cd {{build_npm_path}} && {{local/bin/npm}} {{build_npm_options}}', get('build_npm_run_options'));
 })->hidden();

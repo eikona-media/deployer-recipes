@@ -14,7 +14,7 @@ require 'recipe/deploy/scp.php';
     * ``local/bin/scp`` - default: ``which scp``
     * ``scp_upload_source`` - default: ``./``
     * ``scp_upload_destination`` - default: ``{{release_path}}/``
-    * ``scp_upload_config`` - default: ``[]`` - ``'options'`` will be added to command
+    * ``scp_upload_config`` - default: ``[]`` - ``'options'`` will be added to command, other keys (e.g. ``timeout``) are passed to ``runLocally()``
 
    Uses ``port``, ``configFile``, ``identityfile``, ``forwardAgent`` of host for ssh connection!
 

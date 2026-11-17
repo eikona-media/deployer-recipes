@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Deployer;
 
+require_once __DIR__.'/functions.php';
+
 require_once __DIR__ . '/deploy/cache.php';
 require_once __DIR__ . '/deploy/stage_specific_files.php';
 require_once __DIR__ . '/deploy/update_shared.php';
@@ -82,11 +84,11 @@ desc('Build shopware recovery');
 task(
     'shopware:build:recovery',
     static function () {
-        runLocally(
+        eikonaRunLocally(
             'cd {{build_composer_path}} && {{local/bin/php}} {{local/bin/composer}} {{build_composer_options}} {{build_composer_options_extra}} --working-dir vendor/shopware/recovery',
             get('build_composer_run_options')
         );
-        runLocally(
+        eikonaRunLocally(
             'cd {{build_composer_path}} && {{local/bin/php}} {{local/bin/composer}} {{build_composer_options}} {{build_composer_options_extra}} --working-dir=vendor/shopware/recovery/Common',
             get('build_composer_run_options')
         );
@@ -98,7 +100,7 @@ desc('Build shopware Javascript');
 task(
     'shopware:build:js',
     static function () {
-        runLocally('cd ./ && bash bin/build-js.sh', get('build_shopware_js_run_options'));
+        eikonaRunLocally('cd ./ && bash bin/build-js.sh', get('build_shopware_js_run_options'));
     }
 )->hidden();
 

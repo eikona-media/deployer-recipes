@@ -1,5 +1,7 @@
 # Shopware recipe
 
+> **Deprecated:** does not load with Deployer 7/8 (`deploy:cache:warmup` missing) and builds the recovery folder removed in Shopware 6.5. Use Deployer's `recipe/common.php` + `shopware/deployment-helper`, see https://developer.shopware.com/docs/guides/hosting/installation-updates/deployments/deployment-with-deployer.html
+
 ## Installing
 
 Include recipe in `deploy.php` file.

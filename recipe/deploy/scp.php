@@ -15,6 +15,8 @@ use Deployer\Host\Localhost;
 use Deployer\Task\Context;
 use function Deployer\Support\parse_home_dir;
 
+require_once __DIR__.'/../functions.php';
+
 require_once __DIR__.'/tar.php';
 
 set('scp_upload_source', './');
@@ -42,7 +44,7 @@ task(
         $config = array_merge($defaults, get('scp_upload_config'));
 
         if ($host instanceof Localhost) {
-            runLocally('cp -rv '.implode(' ', $config['options'])." $source $destination", $config);
+            eikonaRunLocally('cp -rv '.implode(' ', $config['options'])." $source $destination", $config);
         } else {
             $options = $config['options'];
             if ($host->has('ssh_arguments')) {
@@ -63,7 +65,7 @@ task(
                 $options = array_merge($options, ['-A']);
             }
 
-            runLocally(
+            eikonaRunLocally(
                 '{{local/bin/scp}} -rv '.implode(' ', $options)." $source {$host->connectionString()}:$destination",
                 $config
             );

@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 namespace Deployer;
 
-use function Deployer\Support\str_contains;
-
 desc('Preparing host for deploy without releases');
 task('deploy:prepare', function () {
     // Check if shell is POSIX-compliant
