@@ -1,4 +1,4 @@
-# Deployer Recipes
+# Deployer Recipes for Deployer 6.8
 
 This repository contains third party recipes to integrate with [deployer](https://github.com/deployphp/deployer).
 
