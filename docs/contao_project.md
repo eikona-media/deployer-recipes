@@ -14,7 +14,7 @@ The recipe extends the contao recipe of core deployer, so you have to include th
 require 'recipe/contao.php';
 ```
 
-see the docs: https://deployer.org/docs/7.x/recipe/contao
+see the docs: https://deployer.org/docs/8.x/recipe/contao
 
 ### Optional Usage
 

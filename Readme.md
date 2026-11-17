@@ -1,11 +1,19 @@
-# Deployer Recipes for Deployer 7
+# Deployer Recipes for Deployer 8 (and 7)
 
 This repository contains third party recipes to integrate with [deployer](https://github.com/deployphp/deployer).
+
+Version 3.x supports **Deployer 8** (requires PHP >= 8.3) and Deployer 7 - see [Compatibility](#compatibility).
 
 ## Installing
 
 ~~~sh
-composer require eikona-media/deployer-recipes --dev
+composer require eikona-media/deployer-recipes:^3.0 --dev
+~~~
+
+With Deployer 8 installed globally (e.g. in a CI image):
+
+~~~sh
+composer global require deployer/deployer:^8.0 eikona-media/deployer-recipes:^3.0
 ~~~
 
 Include recipes in `deploy.php` file.
